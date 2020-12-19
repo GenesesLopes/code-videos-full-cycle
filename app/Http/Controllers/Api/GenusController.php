@@ -43,10 +43,10 @@ class GenusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Genus  $genus
+     * @param  \App\Models\Genus  $genu
      * @return \Illuminate\Http\Response
      */
-    public function show(Genus $genus)
+    public function show(Genus $genu)
     {
         //
     }
@@ -54,10 +54,10 @@ class GenusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Genus  $genus
+     * @param  \App\Models\Genus  $genu
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genus $genus)
+    public function edit(Genus $genu)
     {
         //
     }
@@ -66,10 +66,10 @@ class GenusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Genus  $genus
+     * @param  \App\Models\Genus  $genu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genus $genus)
+    public function update(Request $request, Genus $genu)
     {
         //
     }
@@ -77,10 +77,10 @@ class GenusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Genus  $genus
+     * @param  \App\Models\Genus  $genu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genus $genus)
+    public function destroy(Genus $genu)
     {
         //
     }
