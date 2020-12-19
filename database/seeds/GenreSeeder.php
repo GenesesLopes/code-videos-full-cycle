@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Genus;
+use App\Models\Genre;
 use Illuminate\Database\Seeder;
 
-class GenusSeeder extends Seeder
+class GenreSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class GenusSeeder extends Seeder
      */
     public function run()
     {
-        factory(Genus::class,100)->create();
+        factory(Genre::class,100)->create();
     }
 }

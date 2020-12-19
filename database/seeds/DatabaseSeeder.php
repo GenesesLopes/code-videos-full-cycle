@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategoriesTableSeeder::class,
-            GenusSeeder::class
+            GenreSeeder::class
         ]);
     }
 }

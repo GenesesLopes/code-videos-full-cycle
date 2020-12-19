@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Genus;
+use App\Models\Genre;
 use Faker\Generator as Faker;
 
-$factory->define(Genus::class, function (Faker $faker) {
+$factory->define(Genre::class, function (Faker $faker) {
     return [
         'name' => $faker->colorName
     ];

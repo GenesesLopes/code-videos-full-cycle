@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\Uuid;
 
-class Genus extends Model
+class Genre extends Model
 {
     use SoftDeletes, Uuid;
-     //
-     protected $fillable = [
+
+    //
+    protected $fillable = [
         'name',
         'is_active'
     ];
