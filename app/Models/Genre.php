@@ -16,7 +16,7 @@ class Genre extends Model
         'is_active'
     ];
 
-    public $increment = false;
+    public $incrementing = false;
     protected $keyType = 'string';
 
 
