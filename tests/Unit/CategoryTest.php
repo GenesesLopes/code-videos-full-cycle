@@ -10,13 +10,25 @@ use PHPUnit\Framework\TestCase;
 class CategoryTest extends TestCase
 {
 
+    /**
+     *
+     * @var Category
+     */
+    private $category;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->category = new Category;
+    }
+    
     public function testFilable()
     {
         $fillable = ['name', 'description', 'is_active'];
-        $category = new Category();
+        
         $this->assertEquals(
             $fillable,
-            $category->getFillable()
+            $this->category->getFillable()
         );
     }
 
@@ -29,24 +41,24 @@ class CategoryTest extends TestCase
 
     public function testIncrementing()
     {
-        $category = new Category();
-        $this->assertFalse($category->incrementing);
+        
+        $this->assertFalse($this->category->incrementing);
     }
 
     public function testKeyTypes()
     {
-        $category = new Category();
+        
         $keyType = 'string';
-        $this->assertEquals($keyType,$category->getKeyType());
+        $this->assertEquals($keyType,$this->category->getKeyType());
     }
 
     public function testDates()
     {
-        $category = new Category();
+        
         $dates = ['deleted_at','created_at','updated_at'];
         foreach($dates as $date){
-            $this->assertContains($date,$category->getDates());
+            $this->assertContains($date,$this->category->getDates());
         }
-        $this->assertCount(count($dates),$category->getDates());
+        $this->assertCount(count($dates),$this->category->getDates());
     }
 }
