@@ -5,7 +5,8 @@ namespace Tests\Unit;
 use App\Models\Category;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase\Models;
+use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
