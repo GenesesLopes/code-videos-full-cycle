@@ -12,7 +12,7 @@ use Tests\TestCase;
 class CategoryTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
 
     public function testList()
     {
@@ -65,9 +65,7 @@ class CategoryTest extends TestCase
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    
     public function testDestroy()
     {
 
