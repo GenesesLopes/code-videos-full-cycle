@@ -41,6 +41,7 @@ class CategoryTest extends TestCase
         $this->assertEquals('test 01', $category->name);
         $this->assertNull($category->description);
         $this->assertTrue($category->is_active);
+        $this->assertTrue(Uuid::isValid($category->id));
     }
 
     public function testUpdate()
@@ -58,10 +59,25 @@ class CategoryTest extends TestCase
             'is_active' => true
         ];
         $category->update($data);
-        
-        foreach ($data as $key => $value) {
-            $this->assertEquals($value,$category->{$key});
-        }
 
+        foreach ($data as $key => $value) {
+            $this->assertEquals($value, $category->{$key});
+        }
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testDestroy()
+    {
+
+        /**
+         * @var Category
+         */
+        $category = factory(Category::class)->create();
+        $category->refresh();
+        $id = $category->id;
+        $category->delete();
+        $this->assertNull(Category::find($id));
     }
 }
