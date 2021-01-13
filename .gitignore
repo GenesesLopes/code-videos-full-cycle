@@ -6,6 +6,7 @@
 .env
 .env.testing
 .env.backup
+!.docker/app/*
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -15,6 +16,6 @@ yarn-error.log
 .idea/
 .vscode/
 .history/
-.devcontainer/
+.devcontainer/docker-compose.yml
 _ide_helper_models.php
 _ide_helper.php
