@@ -139,10 +139,6 @@ class GenreControllerTest extends TestCase
                 'name' => 'test'
             ]);
 
-        $response = $this->json('PUT', route('genre.update', ['genre' => $genre->id]), [
-            'name' => 'test',
-            'is_active' => true
-        ]);
     }
 
     public function testDestroy()
