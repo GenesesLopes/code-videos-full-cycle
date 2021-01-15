@@ -164,6 +164,7 @@ class CategoryControllerTest extends TestCase
         $response
             ->assertStatus(204);
 
+        $this->assertNull(Category::find($category->id));
         $category->restore();
         $response = $this->json('GET', route('categories.show', ['category' => $category->id]));
         $response
