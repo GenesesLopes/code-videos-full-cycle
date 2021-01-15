@@ -153,6 +153,7 @@ class GenreControllerTest extends TestCase
         $response
             ->assertStatus(204);
 
+        $this->assertNull(Genre::find($genre->id));
         $genre->restore();
         $response = $this->json('GET', route('genre.show', ['genre' => $genre->id]));
         $response
