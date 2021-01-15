@@ -31,7 +31,6 @@ class CategoryControllerTest extends TestCase
 
     public function testIndex()
     {
-
         $response = $this->get(route('categories.index'));
 
         $response
@@ -76,29 +75,24 @@ class CategoryControllerTest extends TestCase
         $data = [
             'name' => 'test'
         ];
-        $this->assertStore($data, $data + ['description' => null, 'is_active' => true]);
-        // $response = $this->json('POST', route('categories.store'), [
-        //     'name' => 'test'
-        // ]);
+        $response = $this->assertStore(
+            $data,
+            $data + ['description' => null, 'is_active' => true, 'deleted_at' => null]
+        );
+        $response->assertJsonStructure([
+            'created_at', 'updated_at'
+        ]);
+        $data = [
+            'name' => 'test',
+            'is_active' => false,
+            'description' => 'description'
+        ];
 
-        // $category = Category::find($response->json('id'));
+        $this->assertStore(
+            $data,
+            $data + ['description' => 'description', 'is_active' => false]
+        );
 
-        // $response
-        //     ->assertStatus(201)
-        //     ->assertJson($category->toArray());
-        // $this->assertTrue($response->json('is_active'));
-        // $this->assertNull($response->json('description'));
-
-        // $response = $this->json('POST', route('categories.store'), [
-        //     'name' => 'test',
-        //     'is_active' => false,
-        //     'description' => 'description'
-        // ]);
-
-        // $response->assertJsonFragment([
-        //     'is_active' => false,
-        //     'description' => 'description'
-        // ]);
     }
 
     public function testUpdate()
