@@ -126,7 +126,6 @@ class CategoryControllerTest extends TestCase
 
     public function testDestroy()
     {
-
         $response = $this->json('DELETE', route('categories.destroy', ['category' => $this->category->id]));
         $response
             ->assertStatus(204);
@@ -138,6 +137,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJson($this->category->toArray());
     }
+
     protected function routeStore()
     {
         return route('categories.store');
@@ -146,6 +146,11 @@ class CategoryControllerTest extends TestCase
     protected function routeUpdate()
     {
         return route('categories.update', ['category' => $this->category->id]);
+    }
+
+    protected function routeDestroy()
+    {
+        return route('categories.destroy', ['category' => $this->category->id]);
     }
 
     protected function model()

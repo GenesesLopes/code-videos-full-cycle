@@ -13,10 +13,9 @@ trait TestSaves
     ): TestResponse {
         /**@var TestResponse $response */
         $response = $this->json('POST', $this->routeStore(), $sendData);
-        if ($response->status() !== 201)
-            throw new \Exception("Response status must be 201, give {$response->status()}:\n{$response->content()}");
+        $this->assertStatusCode($response, 201);
         $this->assertInDatabase($response, $testDatabase);
-        $this->assertJsonResponseContent($response,$testDatabase,$testJsonData);
+        $this->assertJsonResponseContent($response, $testDatabase, $testJsonData);
 
         return $response;
     }
@@ -28,12 +27,17 @@ trait TestSaves
     ): TestResponse {
         /**@var TestResponse $response */
         $response = $this->json('PUT', $this->routeUpdate(), $sendData);
-        if ($response->status() !== 200)
-            throw new \Exception("Response status must be 200, give {$response->status()}:\n{$response->content()}");
+        $this->assertStatusCode($response, 200);
         $this->assertInDatabase($response, $testDatabase);
-        $this->assertJsonResponseContent($response,$testDatabase,$testJsonData);
+        $this->assertJsonResponseContent($response, $testDatabase, $testJsonData);
 
         return $response;
+    }
+
+    private function assertStatusCode(TestResponse $response, int $statusCode): void
+    {
+        if ($response->status() !== $statusCode)
+            throw new \Exception("Response status must be ${$statusCode}, give {$response->status()}:\n{$response->content()}");
     }
 
     private function assertInDatabase(TestResponse $response, array $testDatabase)
