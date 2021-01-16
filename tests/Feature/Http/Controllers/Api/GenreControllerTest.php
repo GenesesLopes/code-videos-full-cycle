@@ -28,32 +28,6 @@ class GenreControllerTest extends TestCase
         $this->genre = factory(Genre::class)->create();
     }
 
-    protected function assertInvalidationRequired(TestResponse $response)
-    {
-        $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['name'])
-            ->assertJsonMissingValidationErrors(['is_active'])
-            ->assertJsonFragment([Lang::get('validation.required', ['attribute' => 'name'])]);
-    }
-
-    protected function assertInvalidationMax(TestResponse $response)
-    {
-        $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['name'])
-            ->assertJsonFragment([Lang::get('validation.max.string', ['attribute' => 'name', 'max' => 255])]);
-    }
-
-    protected function assertInvalidationBoolean(TestResponse $response)
-    {
-        $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['is_active'])
-            ->assertJsonFragment([
-                Lang::get('validation.boolean', ['attribute' => 'is active'])
-            ]);
-    }
     public function testIndex()
     {
         $response = $this->get(route('genre.index'));
