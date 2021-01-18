@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
 use Tests\TestCase;
@@ -18,11 +20,14 @@ use Tests\Traits\{
 
 class BasicCrudControllerTest extends TestCase
 {
+    /** @var CategoryControllerStub */
+    private $controller;
     protected function setUp(): void
     {
         parent::setUp();
         CategoryStub::dropTable();
         CategoryStub::createTable();
+        $this->controller = new CategoryControllerStub();
     }
 
     protected function tearDown(): void
@@ -35,8 +40,18 @@ class BasicCrudControllerTest extends TestCase
     {
         /**@var CategoryStub */ 
         $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
-        $controller = new CategoryControllerStub();
-        $result = $controller->index()->toArray();
+        $result = $this->controller->index()->toArray();
         $this->assertEquals([$category->toArray()],$result);
+    }
+
+    public function testInvalidationDataInStore()
+    {
+        $this->expectException(ValidationException::class);
+        $request = \Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name' => '']);
+        $this->controller->store($request);
     }
 }
