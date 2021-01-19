@@ -12,10 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
 use Tests\TestCase;
-use Tests\Traits\{
-    TestSaves,
-    TestValidations
-};
+use Mockery;
 
 
 class BasicCrudControllerTest extends TestCase
@@ -38,20 +35,31 @@ class BasicCrudControllerTest extends TestCase
 
     public function testIndex()
     {
-        /**@var CategoryStub */ 
+        /**@var CategoryStub */
         $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
         $result = $this->controller->index()->toArray();
-        $this->assertEquals([$category->toArray()],$result);
+        $this->assertEquals([$category->toArray()], $result);
     }
 
     public function testInvalidationDataInStore()
     {
         $this->expectException(ValidationException::class);
-        $request = \Mockery::mock(Request::class);
+        $request = Mockery::mock(Request::class);
         $request
             ->shouldReceive('all')
             ->once()
             ->andReturn(['name' => '']);
         $this->controller->store($request);
+    }
+
+    public function testStore()
+    {
+        $request = Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name' => 'test_name', 'description' => 'test_description']);
+        $obj = $this->controller->store($request);
+        $this->assertEquals(CategoryStub::find(1)->toarray(), $obj->toArray());
     }
 }
