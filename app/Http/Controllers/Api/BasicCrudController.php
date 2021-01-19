@@ -27,15 +27,12 @@ abstract class BasicCrudController extends Controller
         return $obj;
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->validate($request,$this->rules());
-    //     $category = Category::create($request->all());
-    //     $category->refresh();
-    //     return $category;
-    // }
-
-
+    protected function findOrFail($id)
+    {
+        $model = $this->model();
+        $keyName = (new $model)->getRouteKeyName();
+        return $this->model()::where($keyName, $id)->firstOrFail();
+    }
     // public function show(Category $category)
     // {
     //     return $category;

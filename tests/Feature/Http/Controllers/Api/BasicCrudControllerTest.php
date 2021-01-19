@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\BasicCrudController;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse;
@@ -61,5 +63,30 @@ class BasicCrudControllerTest extends TestCase
             ->andReturn(['name' => 'test_name', 'description' => 'test_description']);
         $obj = $this->controller->store($request);
         $this->assertEquals(CategoryStub::find(1)->toarray(), $obj->toArray());
+    }
+
+    public function testIfFindOrFailFetchModel()
+    {
+        /**@var CategoryStub */
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
+        $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+        $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+        $reflectionMethod->setAccessible(true);
+        
+        $result = $reflectionMethod->invokeArgs($this->controller,[$category->id]);
+
+        $this->assertInstanceOf(CategoryStub::class, $result);
+    }
+
+    public function testIfFindOrFailThrowExceptionIdWhenInvalid()
+    {
+        $this->expectException(ModelNotFoundException::class);
+        $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+        $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+        $reflectionMethod->setAccessible(true);
+        
+        $result = $reflectionMethod->invokeArgs($this->controller,[0]);
+
+        $this->assertInstanceOf(CategoryStub::class, $result);
     }
 }
