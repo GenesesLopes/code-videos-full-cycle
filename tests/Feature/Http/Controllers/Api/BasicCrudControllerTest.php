@@ -15,12 +15,12 @@ use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
 use Tests\TestCase;
 use Mockery;
-
-
 class BasicCrudControllerTest extends TestCase
 {
     /** @var CategoryControllerStub */
     private $controller;
+
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -46,6 +46,7 @@ class BasicCrudControllerTest extends TestCase
     public function testInvalidationDataInStore()
     {
         $this->expectException(ValidationException::class);
+            
         $request = Mockery::mock(Request::class);
         $request
             ->shouldReceive('all')
