@@ -8,4 +8,6 @@ jobs:
       - name: Build de containers
         run: docker-compose up -d
       - name: Run Tests
-        run: docker exec -it micro-videos-app ./vendor/bin/phpunit
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
+        run: docker-compose exec app ./vendor/bin/phpunit
