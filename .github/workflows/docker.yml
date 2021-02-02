@@ -7,3 +7,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build de containers
         run: docker-compose up -d
+      - name: Run Tests
+        run: docker-compose exec app ./vendor/bin/phpunit
