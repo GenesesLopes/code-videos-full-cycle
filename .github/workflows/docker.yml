@@ -8,4 +8,4 @@ jobs:
       - name: Build de containers
         run: docker-compose up -d
       - name: Run Tests
-        run: docker-compose exec app ./vendor/bin/phpunit
+        run: docker exec -it micro-videos-app ./vendor/bin/phpunit
