@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build de containers
-        run: docker-compose up -d
+        run: docker-compose up -d --build
       - name: Run Tests
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
