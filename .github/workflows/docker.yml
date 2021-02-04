@@ -12,16 +12,10 @@ jobs:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app cp .env.example .env
       - name: Copy .env testing
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app cp .env.testing.example .env.testing
       - name: Run composer install
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app composer install
       - name: Run clean cache
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app php artisan cache:clear
       - name: Run Tests
         run: docker exec micro-videos-app ./vendor/bin/phpunit
