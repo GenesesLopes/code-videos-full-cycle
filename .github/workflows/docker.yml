@@ -5,11 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker-compose
-        run: docker-compose -f docker-compose.prod.yaml pull
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        run: docker-compose -f docker-compose.prod.yaml up -d --build
+
+      - uses: whoan/docker-build-with-cache-action@support-compose-override
+        with:
+          compose_file: docker-compose.yml > docker-compose.override.yml
+      # - name: Build docker-compose
+      # - run: docker-compose -f docker-compose.prod.yaml pull
+      # - uses: satackey/action-docker-layer-caching@v0.0.11
+      #   continue-on-error: true
+        #run: docker-compose -f docker-compose.prod.yaml up -d --build
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
