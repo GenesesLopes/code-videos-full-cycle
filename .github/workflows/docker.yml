@@ -11,6 +11,8 @@ jobs:
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app cp .env.example .env
+      - name: Run migrations
+        run: docker exec micro-videos-app php artisan migrate
       - name: Copy .env testing
         run: docker exec micro-videos-app cp .env.testing.example .env.testing
       - name: Run composer install
