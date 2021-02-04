@@ -19,10 +19,10 @@ jobs:
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app composer install
-      - name: Sleep for 30 seconds
+      - name: Sleep for 5 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '20s'
+          time: '5s'
       - name: Run migrations
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
