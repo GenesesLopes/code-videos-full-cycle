@@ -8,12 +8,22 @@ jobs:
       - name: Build de containers
         run: docker-compose -f docker-compose.prod.yaml up -d --build
       - name: Copy .env
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker-compose exec app cp .env.example .env
       - name: Copy .env testing
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker-compose exec app cp .env.testing.example .env.testing
       - name: Run composer install
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker-compose exec app composer install
       - name: Run clean cache
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker-compose exec app php artisan cache:clear
       - name: Run Tests
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker-compose exec app ./vendor/bin/phpunit
