@@ -16,8 +16,12 @@ jobs:
       - name: Run composer install
         run: docker exec micro-videos-app composer install
       - name: Run migrations
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app php artisan migrate
       - name: Run clean cache
         run: docker exec micro-videos-app php artisan cache:clear
       - name: Run Tests
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app ./vendor/bin/phpunit
