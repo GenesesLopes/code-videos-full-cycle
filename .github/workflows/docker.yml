@@ -6,8 +6,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build de containers
-        run: docker-compose up -d --build
+        run: docker-compose -f docker-compose.prod.yaml up -d --build
+      - name: Copy .env
+        run: docker-compose exec app cp .env.example .env
+      - name: Copy .env testing
+        run: docker-compose exec app cp .env.testing.example .env.testing
+      - name: Run composer install
+        run: docker-compose exec app composer install
+      - name: Run clean cache
+        run: docker-compose exec app php artisan cache:clear
       - name: Run Tests
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app ls
+        run: docker-compose exec app ./vendor/bin/phpunit
