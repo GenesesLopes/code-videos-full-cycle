@@ -7,6 +7,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build de containers
         run: docker-compose -f docker-compose.prod.yaml up -d --build
+      - name: Test containers
+        run: docker-compose ps
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
@@ -14,6 +16,8 @@ jobs:
       - name: Copy .env testing
         run: docker exec micro-videos-app cp .env.testing.example .env.testing
       - name: Run composer install
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app composer install
       - name: Run migrations
         env:
