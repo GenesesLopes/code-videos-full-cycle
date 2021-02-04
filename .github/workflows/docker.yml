@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: whoan/docker-build-with-cache-action@v5
-      - name: Build de containers
         with:
           compose_file: docker-compose.yml > docker-compose.prod.yaml
         # run: docker-compose -f docker-compose.prod.yaml up -d --build
