@@ -4,12 +4,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: whoan/docker-build-with-cache-action@v5
-        with:
-          registry: docker.pkg.github.com
-          compose_file: docker-compose.prod.yaml
-        # run: docker-compose -f docker-compose.prod.yaml up -d --build
       - uses: actions/checkout@v2
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        run: docker-compose -f docker-compose.prod.yaml up -d --build
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
