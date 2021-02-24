@@ -55,6 +55,7 @@ class VideoTest extends TestCase
     {
 
         $dates = ['deleted_at', 'created_at', 'updated_at'];
+
         foreach ($dates as $date) {
             $this->assertContains($date, $this->video->getDates());
         }
@@ -65,5 +66,14 @@ class VideoTest extends TestCase
     {
         $ratingList = ['L', '10', '12', '14', '16', '18'];
         $this->assertEquals($ratingList, Video::RATING_LIST);
+    }
+
+    public function testMethodsRelations()
+    {
+        $methods = ['categories', 'genres'];
+        $methodsClass = get_class_methods(Video::class);
+        foreach ($methods as $method) {
+            $this->assertContains($method, $methodsClass);
+        }
     }
 }

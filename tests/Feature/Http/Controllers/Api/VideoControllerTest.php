@@ -182,7 +182,7 @@ class VideoControllerTest extends TestCase
                 'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]]
             ]
         ];
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             $response = $this->assertStore(
                 $value['send_data'],
                 $value['test_data'] + ['deleted_at' => null]
