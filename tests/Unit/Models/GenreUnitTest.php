@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,5 +70,12 @@ class GenreTest extends TestCase
             'is_active' => 'boolean'
         ];
         $this->assertEquals($casts, $this->genre->getCasts());
+    }
+
+    public function testMethodsRelations()
+    {
+        $method = 'genres';
+        $methodsClass = get_class_methods(Category::class);
+        $this->assertTrue(in_array($method, $methodsClass));
     }
 }

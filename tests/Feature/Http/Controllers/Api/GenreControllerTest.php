@@ -2,7 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
-use App\Models\Genre;
+use App\Models\{
+    Genre,
+    Category
+};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse;
@@ -22,10 +25,16 @@ class GenreControllerTest extends TestCase
      */
     private $genre;
 
+    /**
+     * @var Category
+     */
+    private $category;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->genre = factory(Genre::class)->create();
+        $this->category = factory(Category::class)->create();
     }
 
     public function testIndex()
