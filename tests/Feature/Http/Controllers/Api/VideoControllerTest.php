@@ -138,6 +138,14 @@ class VideoControllerTest extends TestCase
         ];
         $this->assertInvalidationInStoreAction($data, 'exists');
         $this->assertInvalidationInUpdateAction($data, 'exists');
+
+        $category = factory(Category::class)->create();
+        $category->delete();
+        $data = [
+            'categories_id' => [$category->id]
+        ];
+        $this->assertInvalidationInStoreAction($data, 'exists');
+        $this->assertInvalidationInUpdateAction($data, 'exists');
     }
 
     public function testInvalidationGenresIdField()
@@ -153,12 +161,21 @@ class VideoControllerTest extends TestCase
         ];
         $this->assertInvalidationInStoreAction($data, 'exists');
         $this->assertInvalidationInUpdateAction($data, 'exists');
+
+        $genre = factory(Genre::class)->create();
+        $genre->delete();
+        $data = [
+            'genres_id' => [$genre->id]
+        ];
+        $this->assertInvalidationInStoreAction($data, 'exists');
+        $this->assertInvalidationInUpdateAction($data, 'exists');
     }
 
     public function testSave()
     {
         $categories = factory(Category::class)->create();
         $genres = factory(Genre::class)->create();
+        $genres->categories()->sync($categories->id);
         $data = [
             [
                 'send_data' => $this->sendData + [
@@ -169,14 +186,16 @@ class VideoControllerTest extends TestCase
             ],
             [
                 'send_data' => $this->sendData + [
-                    'opened' => true, 'categories_id' => [$categories->id],
+                    'opened' => true,
+                    'categories_id' => [$categories->id],
                     'genres_id' => [$genres->id]
                 ],
                 'test_data' => $this->sendData + ['opened' => true]
             ],
             [
                 'send_data' => $this->sendData + [
-                    'rating' => Video::RATING_LIST[1], 'categories_id' => [$categories->id],
+                    'rating' => Video::RATING_LIST[1],
+                    'categories_id' => [$categories->id],
                     'genres_id' => [$genres->id]
                 ],
                 'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]]
@@ -190,15 +209,49 @@ class VideoControllerTest extends TestCase
             $response->assertJsonStructure([
                 'created_at', 'updated_at'
             ]);
+            $this->assertHasCategory(
+                $response->json('id'),
+                $value['send_data']['categories_id'][0]
+            );
+
+            $this->assertHasGenre(
+                $response->json('id'),
+                $value['send_data']['genres_id'][0]
+            );
+
             $response = $this->assertUpdate(
                 $value['send_data'],
                 $value['test_data'] + ['deleted_at' => null]
             );
-
             $response->assertJsonStructure([
                 'created_at', 'updated_at'
             ]);
+
+            $this->assertHasCategory(
+                $response->json('id'),
+                $value['send_data']['categories_id'][0]
+            );
+            $this->assertHasGenre(
+                $response->json('id'),
+                $value['send_data']['genres_id'][0]
+            );
         }
+    }
+
+    protected function assertHasCategory($videoId, $categoryId)
+    {
+        $this->assertDatabaseHas('category_video', [
+            'video_id' => $videoId,
+            'category_id' => $categoryId
+        ]);
+    }
+
+    protected function assertHasGenre($videoId, $genreId)
+    {
+        $this->assertDatabaseHas('genre_video', [
+            'video_id' => $videoId,
+            'genre_id' => $genreId
+        ]);
     }
 
 
@@ -233,11 +286,47 @@ class VideoControllerTest extends TestCase
             ->once()
             ->withAnyArgs()
             ->andThrow(new TestException());
+        $hasError = false;
         try {
             $controller->store($request);
         } catch (TestException $e) {
             $this->assertCount(1, Video::all());
+            $hasError = true;
         }
+
+        $this->assertTrue($hasError);
+    }
+
+    public function testRolbackUpdate()
+    {
+        $controller = \Mockery::mock(VideoController::class)
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+        $controller->shouldReceive('findOrFail')
+            ->withAnyArgs()
+            ->andReturn($this->video);
+        $controller->shouldReceive('validate')
+            ->withAnyArgs()
+            ->andReturn($this->sendData);
+
+        $controller->shouldReceive('rulesUpdate')
+            ->withAnyArgs()
+            ->andReturn([]);
+
+        $request = \Mockery::mock(Request::class);
+
+        $controller->shouldReceive('handleRelations')
+            ->once()
+            ->withAnyArgs()
+            ->andThrow(new TestException());
+        $hasError = false;
+        try {
+            $controller->update($request, 1);
+        } catch (TestException $e) {
+            $this->assertCount(1, Video::all());
+            $hasError = true;
+        }
+        $this->assertTrue($hasError);
     }
 
     protected function routeStore()

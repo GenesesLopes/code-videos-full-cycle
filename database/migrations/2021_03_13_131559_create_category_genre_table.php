@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGenreCategoryTable extends Migration
+class CreateCategoryGenreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGenreCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('genre_category', function (Blueprint $table) {
+        Schema::create('category_genre', function (Blueprint $table) {
             $table->uuid('genre_id')->index();
             $table->foreign('genre_id')->references('id')->on('genres');
             $table->uuid('category_id')->index();
@@ -29,6 +29,6 @@ class CreateGenreCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genre_category');
+        Schema::dropIfExists('category_genre');
     }
 }
