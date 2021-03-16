@@ -20,7 +20,7 @@ class GenresHasCategoriesRule implements Rule
      *
      * @var Array
      */
-    private $GenresId;
+    private $genresId;
 
     /**
      * Create a new rule instance.
@@ -42,12 +42,12 @@ class GenresHasCategoriesRule implements Rule
     public function passes($attribute, $value)
     {
         //
-        $this->GenresId = array_unique($value);
-        if (!count($this->categoriesId) || !count($this->GenresId))
+        $this->genresId = array_unique($value);
+        if (!count($this->categoriesId) || !count($this->genresId))
             return false;
 
         $categoriesFound = [];
-        foreach ($this->GenresId as $genreId) {
+        foreach ($this->genresId as $genreId) {
             $rows = $this->getRows($genreId);
             if (!$rows->count())
                 return false;
