@@ -18,7 +18,7 @@ use Tests\Traits\{
     TestValidations
 };
 use Illuminate\Http\Request;
-
+use Mockery\MockInterface;
 
 class VideoControllerTest extends TestCase
 {
@@ -281,11 +281,17 @@ class VideoControllerTest extends TestCase
         $controller->shouldReceive('rulesStore')
             ->withAnyArgs()
             ->andReturn([]);
-        $request = \Mockery::mock(Request::class);
+
         $controller->shouldReceive('handleRelations')
             ->once()
             ->withAnyArgs()
             ->andThrow(new TestException());
+        /** @var MockInterface */
+        $request = \Mockery::mock(Request::class);
+        $request->shouldReceive('get')
+            ->withAnyArgs()
+            ->andReturnNull();
+
         $hasError = false;
         try {
             $controller->store($request);
@@ -313,7 +319,11 @@ class VideoControllerTest extends TestCase
             ->withAnyArgs()
             ->andReturn([]);
 
+        /** @var MockInterface */
         $request = \Mockery::mock(Request::class);
+        $request->shouldReceive('get')
+            ->withAnyArgs()
+            ->andReturnNull();
 
         $controller->shouldReceive('handleRelations')
             ->once()

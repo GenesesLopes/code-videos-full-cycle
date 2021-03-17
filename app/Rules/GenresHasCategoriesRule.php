@@ -42,6 +42,8 @@ class GenresHasCategoriesRule implements Rule
     public function passes($attribute, $value)
     {
         //
+        if (!is_array($value))
+            $value = [];
         $this->genresId = array_unique($value);
         if (!count($this->categoriesId) || !count($this->genresId))
             return false;
@@ -53,7 +55,7 @@ class GenresHasCategoriesRule implements Rule
                 return false;
             array_push($categoriesFound, ...$rows->pluck('category_id')->toArray());
         }
-
+        $categoriesFound = array_unique($categoriesFound);
         if (count($categoriesFound) !== count($this->categoriesId))
             return false;
         return true;
