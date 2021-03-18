@@ -36,9 +36,9 @@ services:
     restart: always
     tty: true
     ports:
-      - "33006:3306"
+      - "3306:3306"
     volumes:
-      - ./.docker/mysql:/docker-entrypoint-initdb.d
+      - ./.docker/mysql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=root
