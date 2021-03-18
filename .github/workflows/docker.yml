@@ -16,23 +16,25 @@ jobs:
         run: docker exec micro-videos-app cp .env.example .env
       - name: Copy .env testing
         run: docker exec micro-videos-app cp .env.testing.example .env.testing
-      - name: Run composer install
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app composer install
-      - name: Sleep for 10 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "10s"
-      - name: Test containers
-        run: docker-compose ps
-      - name: Run clean cache
-        run: docker exec micro-videos-app php artisan cache:clear
-      - name: Run migrations
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app php artisan migrate
-      - name: Run Tests
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app ./vendor/bin/phpunit
+      - name: log
+        run: docker logs micro-videos-db
+      # - name: Run composer install
+      #   env:
+      #     COMPOSE_INTERACTIVE_NO_CLI: 1
+      #   run: docker exec micro-videos-app composer install
+      # - name: Sleep for 10 seconds
+      #   uses: jakejarvis/wait-action@master
+      #   with:
+      #     time: "10s"
+      # - name: Test containers
+      #   run: docker-compose ps
+      # - name: Run clean cache
+      #   run: docker exec micro-videos-app php artisan cache:clear
+      # - name: Run migrations
+      #   env:
+      #     COMPOSE_INTERACTIVE_NO_CLI: 1
+      #   run: docker exec micro-videos-app php artisan migrate
+      # - name: Run Tests
+      #   env:
+      #     COMPOSE_INTERACTIVE_NO_CLI: 1
+      #   run: docker exec micro-videos-app ./vendor/bin/phpunit
