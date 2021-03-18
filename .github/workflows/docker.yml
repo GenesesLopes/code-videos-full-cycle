@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build de containers
-        run: docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
-      - name: Copy .env
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cp .env.example .env
-      - name: Copy .env testing
-        run: docker exec micro-videos-app cp .env.testing.example .env.testing
+        run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
+      # - name: Copy .env
+      #   env:
+      #     COMPOSE_INTERACTIVE_NO_CLI: 1
+      #   run: docker exec micro-videos-app cp .env.example .env
+      # - name: Copy .env testing
+      #   run: docker exec micro-videos-app cp .env.testing.example .env.testing
       - name: log
         run: docker logs micro-videos-db
       # - name: Run composer install
