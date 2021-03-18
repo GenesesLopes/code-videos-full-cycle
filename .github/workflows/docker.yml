@@ -26,12 +26,12 @@ jobs:
         uses: jakejarvis/wait-action@master
         with:
           time: "10s"
+      - name: Run clean cache
+        run: docker exec micro-videos-app php artisan cache:clear
       - name: Run migrations
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app php artisan migrate
-      - name: Run clean cache
-        run: docker exec micro-videos-app php artisan cache:clear
       - name: Run Tests
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
