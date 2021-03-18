@@ -9,7 +9,7 @@ trait TestSaves
     protected abstract function model();
     protected abstract function routeStore();
     protected abstract function routeUpdate();
-    
+
     protected function assertStore(
         array $sendData,
         array $testDatabase,
@@ -41,7 +41,7 @@ trait TestSaves
     private function assertStatusCode(TestResponse $response, int $statusCode): void
     {
         if ($response->status() !== $statusCode)
-            throw new \Exception("Response status must be ${$statusCode}, give {$response->status()}:\n{$response->content()}");
+            throw new \Exception("Response status must be {$statusCode}, give {$response->status()}:\n{$response->content()}");
     }
 
     private function assertInDatabase(TestResponse $response, array $testDatabase)

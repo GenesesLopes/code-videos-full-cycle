@@ -9,9 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build de containers
-        run: docker-compose -f docker-compose.prod.yaml up -d --build
-      - name: Test containers
-        run: docker-compose ps
+        run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
@@ -22,16 +20,18 @@ jobs:
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app composer install
-      - name: Sleep for 5 seconds
+      - name: Sleep for 10 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '5s'
+          time: "10s"
+      - name: Test containers
+        run: docker-compose ps
+      - name: Run clean cache
+        run: docker exec micro-videos-app php artisan cache:clear
       - name: Run migrations
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app php artisan migrate
-      - name: Run clean cache
-        run: docker exec micro-videos-app php artisan cache:clear
       - name: Run Tests
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1

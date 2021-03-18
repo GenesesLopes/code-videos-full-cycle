@@ -25,4 +25,9 @@ class Category extends Model
 
 
     protected $dates = ['deleted_at'];
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }
