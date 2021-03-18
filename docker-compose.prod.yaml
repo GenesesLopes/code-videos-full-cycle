@@ -41,7 +41,7 @@ services:
       - ./.docker/mysql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
+      # - MYSQL_USER=root
     networks:
       - app-network
 
