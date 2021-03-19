@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Video;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -103,5 +104,48 @@ class VideoTest extends TestCase
         $this->video->delete();
         $this->assertNull(Video::find($id));
         $this->assertNotNull(Video::onlyTrashed()->get());
+    }
+
+    public function testRolbackCreate()
+    {
+        try {
+            $hasError = false;
+            Video::create([
+                'title' => 'title',
+                'description' => 'rescription',
+                'year_launched' => 2010,
+                'rating' => Video::RATING_LIST[0],
+                'duration' => 90,
+                'categories_id' => [0, 1, 2]
+            ]);
+        } catch (QueryException $e) {
+            $this->assertCount(1, Video::all());
+            $hasError = true;
+        }
+
+        $this->assertTrue($hasError);
+    }
+
+    public function testRolbackUpdate()
+    {
+        $hasError = false;
+        $video = factory(Video::class)->create();
+        $oldTitle = $video->title;
+        try {
+            $video->update([
+                'title' => 'title',
+                'description' => 'rescription',
+                'year_launched' => 2010,
+                'rating' => Video::RATING_LIST[0],
+                'duration' => 90,
+                'categories_id' => [0, 1, 2]
+            ]);
+        } catch (QueryException $e) {
+            $this->assertDatabaseHas('videos', [
+                'title' => $oldTitle
+            ]);
+            $hasError = true;
+        }
+        $this->assertTrue($hasError);
     }
 }
