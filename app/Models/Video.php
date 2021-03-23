@@ -13,7 +13,7 @@ class Video extends Model
 
     const RATING_LIST = ['L', '10', '12', '14', '16', '18'];
 
-    public static $fileFields = ['filme', 'banner', 'traller'];
+    public static $fileFields = ['video_file'];
 
     protected $fillable = [
         'title',
@@ -92,6 +92,6 @@ class Video extends Model
 
     function uploadDir()
     {
-        return $this->id;
+        return "/public/videos/{$this->id}";
     }
 }

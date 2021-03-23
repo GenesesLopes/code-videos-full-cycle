@@ -18,6 +18,7 @@ use Tests\Traits\{
     TestValidations
 };
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
 
 class VideoControllerTest extends TestCase
@@ -169,6 +170,17 @@ class VideoControllerTest extends TestCase
         ];
         $this->assertInvalidationInStoreAction($data, 'exists');
         $this->assertInvalidationInUpdateAction($data, 'exists');
+    }
+
+    public function testInvalidationVideoFileField()
+    {
+        \Storage::fake();
+        $video_file = UploadedFile::fake()->create('video.mp4', 1000, 'video/mp4');
+        $data = [
+            'video_file' => $video_file
+        ];
+
+        $this->assertInvalidationInStoreAction($data, 'mimetypes');
     }
 
     public function testSave()
