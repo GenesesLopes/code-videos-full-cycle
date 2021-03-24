@@ -92,6 +92,6 @@ class Video extends Model
 
     function uploadDir()
     {
-        return "/public/videos/{$this->id}";
+        return $this->id;
     }
 }
