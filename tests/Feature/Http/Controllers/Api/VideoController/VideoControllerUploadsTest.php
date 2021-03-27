@@ -77,6 +77,7 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
     {
         return [
             'video_file' => UploadedFile::fake()->create('video_file.mp4')
+            // 'thumb_file' => UploadedFile::fake()->image('image.jpg')
         ];
     }
 

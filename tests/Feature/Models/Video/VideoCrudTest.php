@@ -22,6 +22,7 @@ class VideoCrudTest extends BaseVideoTestCase
                 'title',
                 'description',
                 'video_file',
+                'thumb_file',
                 'year_launched',
                 'opened',
                 'rating',
@@ -42,7 +43,8 @@ class VideoCrudTest extends BaseVideoTestCase
                 'description' => 'description',
                 'year_launched' => 2010,
                 'rating' => Video::RATING_LIST[0],
-                'duration' => 90
+                'duration' => 90,
+                'opened' => true
             ],
             [
                 'title' => 'title 2',
