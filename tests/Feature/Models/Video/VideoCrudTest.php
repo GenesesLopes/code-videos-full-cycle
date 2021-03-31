@@ -147,6 +147,7 @@ class VideoCrudTest extends BaseVideoTestCase
         $video = factory(Video::class)->create();
         $oldTitle = $video->title;
         try {
+
             $video->update([
                 'title' => 'title',
                 'description' => 'rescription',
