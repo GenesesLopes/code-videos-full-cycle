@@ -47,6 +47,7 @@ class UploadFilesUnitTest extends TestCase
         }
     }
 
+
     public function testDeleteFile()
     {
         Storage::fake();
@@ -59,6 +60,26 @@ class UploadFilesUnitTest extends TestCase
         $this->obj->uploadFile($file);
         $this->obj->deleteFile($file);
         Storage::assertMissing("1/{$file->hashName()}");
+    }
+
+    public function testDeleteOldFiles()
+    {
+        Storage::fake();
+        $files = [];
+        for ($i = 1; $i <= 2; $i++)
+            array_push($files, UploadedFile::fake()->create("video{$i}.mp4")->size(1));
+        $this->obj->uploadFiles($files);
+        $this->obj->deleteOldFiles();
+        $this->assertCount(2, Storage::allFiles());
+
+        $this->obj->oldFiles = [$files[1]->hashName()];
+        $this->obj->deleteOldFiles();
+        foreach ($files as $key => $file) {
+            if ($key)
+                Storage::assertMissing("1/{$file->hashName()}");
+            else
+                Storage::assertExists("1/{$file->hashName()}");
+        }
     }
 
     public function testDeleteFiles()
