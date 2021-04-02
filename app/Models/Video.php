@@ -60,7 +60,6 @@ class Video extends Model
     public function update(array $attributes = [], array $options = [])
     {
         $files = self::extractFiles($attributes);
-
         try {
             \DB::beginTransaction();
             $saved = parent::update($attributes, $options);
@@ -74,7 +73,7 @@ class Video extends Model
             }
             return $saved;
         } catch (\Exception $e) {
-            $this->deleteFile($files);
+            $this->deleteFiles($files);
             \DB::rollBack();
             throw $e;
         }

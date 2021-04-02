@@ -149,7 +149,7 @@ class VideoCrudTest extends BaseVideoTestCase
         try {
 
             $video->update([
-                'title' => 'title',
+                'title' => "title",
                 'description' => 'rescription',
                 'year_launched' => 2010,
                 'rating' => Video::RATING_LIST[0],
