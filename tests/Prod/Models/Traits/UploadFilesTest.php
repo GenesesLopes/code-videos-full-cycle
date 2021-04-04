@@ -6,12 +6,13 @@ use Illuminate\Http\UploadedFile;
 use Tests\Stubs\Models\UploadFileStub;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
+use Tests\Traits\TestProd;
 use Tests\Traits\TestStorages;
 
 class UploadFilesUnitTest extends TestCase
 {
 
-    use TestStorages;
+    use TestStorages, TestProd;
     /**
      *
      * @var UploadFileStub
@@ -21,13 +22,15 @@ class UploadFilesUnitTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->isTestingProd();
         $this->obj = new UploadFileStub;
-        \Config::set('filesystem.default', 'gcs');
+        \Config::set('filesystems.default', 'gcs');
         $this->deleteAllFiles();
     }
 
     public function testUploadFile()
     {
+        // $this->markTestSkipped('Testes de produção');
         $file = UploadedFile::fake()->create('video.mp4');
         $this->obj->uploadFile($file);
         Storage::assertExists("1/{$file->hashName()}");
