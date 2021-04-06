@@ -7,7 +7,8 @@ trait TestProd
     protected function skipTestIfNotProd($message = '')
     {
         if (!$this->isTestingProd()) {
-            $this->markTestSkipped('Testes de produção');
+            $message = $message !== '' ? $message : 'Testes de produção';
+            $this->markTestSkipped($message);
         }
     }
 

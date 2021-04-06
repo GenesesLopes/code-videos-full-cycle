@@ -22,7 +22,7 @@ class UploadFilesUnitTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->isTestingProd();
+        $this->skipTestIfNotProd();
         $this->obj = new UploadFileStub;
         \Config::set('filesystems.default', 'gcs');
         $this->deleteAllFiles();
