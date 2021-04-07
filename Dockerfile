@@ -33,7 +33,6 @@ RUN echo "America/Bahia" > /etc/TZ && cp /usr/share/zoneinfo/America/Bahia /etc/
     sed -i "s/expose_php = On/expose_php = Off/g" /usr/local/etc/php/php.ini
 
 
-
 RUN touch /home/www-data/.bashrc | echo "PS1='\w\$ '" >> /home/www-data/.bashrc
 
 ENV DOCKERIZE_VERSION v0.6.1
