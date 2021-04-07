@@ -15,9 +15,9 @@ jobs:
           export_default_credentials: true
       - name: Test gcloud
         run: gcloud kms decrypt --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc --plaintext-file=./storage/credentials/google/service-account-storage.json --location=global --keyring=code-videos --key=service-account
-      # - uses: actions/checkout@v2
-      # - name: test ls
-      #   run: ls -l
+
+      - name: test ls
+        run: ls -l /storage/credentials/google
 
       # - name: test ls
       #   run: ls -l
