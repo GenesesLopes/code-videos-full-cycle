@@ -6,7 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile-prod
     container_name: micro-videos-app
-    #entrypoint: dockerize -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+    environment:
+      - TESTING_PROD=false
     volumes:
       - .:/var/www
     networks:
