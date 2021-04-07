@@ -16,6 +16,8 @@ jobs:
 
     - name: Use gcloud CLI
       run: gcloud info
+    - name: test ls
+      run: ls -l
       # - uses: actions/checkout@v2
       # - name: Build de containers
       #   run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
