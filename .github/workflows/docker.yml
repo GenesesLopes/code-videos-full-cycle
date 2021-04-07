@@ -12,41 +12,33 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          export_default_credentials: true
       - name: Test gcloud
         run: gcloud kms decrypt --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc --plaintext-file=./storage/credentials/google/service-account-storage.json --location=global --keyring=code-videos --key=service-account
-
-      - name: test ls
-        run: ls -l storage/credentials/google
-
-      # - name: test ls
-      #   run: ls -l
-      # - uses: actions/checkout@v2
-      # - name: Build de containers
-      #   run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
-      # - name: Copy .env
-      #   env:
-      #     COMPOSE_INTERACTIVE_NO_CLI: 1
-      #   run: docker exec micro-videos-app cp .env.example .env
-      # - name: Copy .env testing
-      #   run: docker exec micro-videos-app cp .env.testing.example .env.testing
-      # - name: Run composer install
-      #   env:
-      #     COMPOSE_INTERACTIVE_NO_CLI: 1
-      #   run: docker exec micro-videos-app composer install
-      # - name: Sleep for 10 seconds
-      #   uses: jakejarvis/wait-action@master
-      #   with:
-      #     time: "10s"
-      # - name: Test containers
-      #   run: docker-compose ps
-      # - name: Run clean cache
-      #   run: docker exec micro-videos-app php artisan cache:clear
-      # - name: Run migrations
-      #   env:
-      #     COMPOSE_INTERACTIVE_NO_CLI: 1
-      #   run: docker exec micro-videos-app php artisan migrate
-      # - name: Run Tests
-      #   env:
-      #     COMPOSE_INTERACTIVE_NO_CLI: 1
-      #   run: docker exec micro-videos-app ./vendor/bin/phpunit
+      - name: Build de containers
+        run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
+      - name: Copy .env
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
+        run: docker exec micro-videos-app cp .env.example .env
+      - name: Copy .env testing
+        run: docker exec micro-videos-app cp .env.testing.example .env.testing
+      - name: Run composer install
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
+        run: docker exec micro-videos-app composer install
+      - name: Sleep for 10 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "10s"
+      - name: Test containers
+        run: docker-compose ps
+      - name: Run clean cache
+        run: docker exec micro-videos-app php artisan cache:clear
+      - name: Run migrations
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
+        run: docker exec micro-videos-app php artisan migrate
+      - name: Run Tests
+        env:
+          COMPOSE_INTERACTIVE_NO_CLI: 1
+        run: docker exec micro-videos-app ./vendor/bin/phpunit
