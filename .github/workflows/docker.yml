@@ -13,7 +13,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           export_default_credentials: true
-          credentials_file_path: storage/credentials/google
+          credentials_file_path: ./storage/credentials/google
       - name: Test gcloud
         run: gcloud info
       - uses: actions/checkout@v2
