@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile-prod
     container_name: micro-videos-app
     environment:
-      - TESTING_PROD=false
+      - TESTING_PROD=true
     volumes:
       - .:/var/www
     networks:
