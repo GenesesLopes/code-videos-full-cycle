@@ -9,12 +9,12 @@ jobs:
     steps:
       - uses: google-github-actions/setup-gcloud@master
       - name: Set up Cloud SDK
+        run: gcloud info
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           export_default_credentials: true
-      - name: Use gcloud CLI
-        run: gcloud info
+
       # - name: test ls
       #   run: ls -l
       # - uses: actions/checkout@v2
