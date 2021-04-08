@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\Api\VideoController;
 
 use App\Models\Category;
 use App\Models\Genre;
+use App\Models\Video;
 use Illuminate\Http\UploadedFile;
 use Tests\Traits\TestUploads;
 use Tests\Traits\TestValidations;
@@ -12,17 +13,12 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 {
     use TestUploads, TestValidations;
 
-    private function toMB(int $size)
-    {
-        return $size * 1000;
-    }
     public function testInvalidationVideoFileField()
     {
-
         $this->assertInvalidationFile(
             'video_file',
             'mp4',
-            ($this->toMB(50) * 1000),
+            Video::VIDEO_FILE_MAX_SIZE,
             'mimetypes',
             ['values' => 'video/mp4']
         );
@@ -34,9 +30,8 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $this->assertInvalidationFile(
             'thumb_file',
             'jpg',
-            $this->toMB(5),
-            'mimetypes',
-            ['values' => 'image/jpg']
+            Video::THUMB_FILE_MAX_SIZE,
+            'image'
         );
     }
 
@@ -46,9 +41,8 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $this->assertInvalidationFile(
             'banner_file',
             'jpg',
-            $this->toMB(10),
-            'mimetypes',
-            ['values' => 'image/jpg']
+            Video::BANNER_FILE_MAX_SIZE,
+            'image'
         );
     }
 
@@ -58,7 +52,7 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $this->assertInvalidationFile(
             'trailer_file',
             'mp4',
-            $this->toMB(1) * 1000,
+            Video::TRAILER_FILE_MAX_SIZE,
             'mimetypes',
             ['values' => 'video/mp4']
         );
