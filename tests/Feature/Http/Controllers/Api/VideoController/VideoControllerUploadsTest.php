@@ -12,9 +12,9 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 {
     use TestUploads, TestValidations;
 
-    private function toGB(int $size)
+    private function toMB(int $size)
     {
-        return $size * 1000000;
+        return $size * 1000;
     }
     public function testInvalidationVideoFileField()
     {
@@ -22,7 +22,43 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $this->assertInvalidationFile(
             'video_file',
             'mp4',
-            12,
+            ($this->toMB(50) * 1000),
+            'mimetypes',
+            ['values' => 'video/mp4']
+        );
+    }
+
+    public function testInvalidationThumbFileField()
+    {
+
+        $this->assertInvalidationFile(
+            'thumb_file',
+            'jpg',
+            $this->toMB(5),
+            'mimetypes',
+            ['values' => 'image/jpg']
+        );
+    }
+
+    public function testInvalidationBannerFileField()
+    {
+
+        $this->assertInvalidationFile(
+            'banner_file',
+            'jpg',
+            $this->toMB(10),
+            'mimetypes',
+            ['values' => 'image/jpg']
+        );
+    }
+
+    public function testInvalidationTrailerFileField()
+    {
+
+        $this->assertInvalidationFile(
+            'trailer_file',
+            'mp4',
+            $this->toMB(1) * 1000,
             'mimetypes',
             ['values' => 'video/mp4']
         );
