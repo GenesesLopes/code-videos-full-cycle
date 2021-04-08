@@ -12,8 +12,13 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 {
     use TestUploads, TestValidations;
 
+    private function toGB(int $size)
+    {
+        return $size * 1000000;
+    }
     public function testInvalidationVideoFileField()
     {
+
         $this->assertInvalidationFile(
             'video_file',
             'mp4',
@@ -26,7 +31,6 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
     {
         \Storage::fake();
         $files = $this->getFiles();
-
         $categories = factory(Category::class)->create();
         $genres = factory(Genre::class)->create();
         $genres->categories()->sync($categories->id);
@@ -76,8 +80,8 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
     protected function getFiles()
     {
         return [
-            'video_file' => UploadedFile::fake()->create('video_file.mp4')
-            // 'thumb_file' => UploadedFile::fake()->image('image.jpg')
+            'video_file' => UploadedFile::fake()->create('video_file.mp4'),
+            'thumb_file' => UploadedFile::fake()->create('image.jpg')
         ];
     }
 
