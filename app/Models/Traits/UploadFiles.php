@@ -26,6 +26,12 @@ trait UploadFiles
             }, $filesFiltered);
         });
     }
+
+    public function relativeFilePath($value)
+    {
+        return "{$this->uploadDir()}/{$value}";
+    }
+
     /**
      * @param UploadedFile[] $files
      */
