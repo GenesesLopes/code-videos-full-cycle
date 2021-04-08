@@ -13,7 +13,7 @@ class Video extends Model
 
     const RATING_LIST = ['L', '10', '12', '14', '16', '18'];
 
-    public static $fileFields = ['video_file', 'thumb_file'];
+    public static $fileFields = ['video_file', 'thumb_file', 'banner_file', 'trailer_file'];
 
     protected $fillable = [
         'title',
@@ -23,7 +23,9 @@ class Video extends Model
         'rating',
         'duration',
         'video_file',
-        'thumb_file'
+        'thumb_file',
+        'banner_file',
+        'trailer_file'
     ];
 
     protected $dates = ['deleted_at'];
