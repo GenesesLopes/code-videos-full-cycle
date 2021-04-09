@@ -96,6 +96,26 @@ class Video extends Model
             $video->genres()->sync($attributes['genres_id']);
     }
 
+    public function getThumbFileUrlAttribute()
+    {
+        return $this->thumb_file ? $this->getFileUrl($this->thumb_file) : null;
+    }
+
+    public function getBannerFileUrlAttribute()
+    {
+        return $this->banner_file ? $this->getFileUrl($this->banner_file) : null;
+    }
+
+    public function getTrailerFileUrlAttribute()
+    {
+        return $this->trailer_file ? $this->getFileUrl($this->trailer_file) : null;
+    }
+
+    public function getVideoFileUrlAttribute()
+    {
+        return $this->video_file ? $this->getFileUrl($this->video_file) : null;
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class)->withTrashed();

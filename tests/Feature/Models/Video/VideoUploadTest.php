@@ -14,15 +14,10 @@ class VideoUploadTest extends BaseVideoTestCase
 {
 
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        \Storage::fake();
-        // 
-    }
 
     public function testCreateWithFiles()
     {
+        \Storage::fake();
         $video = Video::create(
             $this->data + [
                 'thumb_file' => UploadedFile::fake()->image('thumb.jpg'),
@@ -39,6 +34,7 @@ class VideoUploadTest extends BaseVideoTestCase
 
     public function testCreateIfRollbackFiles()
     {
+        \Storage::fake();
         \Event::listen(TransactionCommitted::class, function () {
             throw new TestException();
         });
@@ -61,6 +57,7 @@ class VideoUploadTest extends BaseVideoTestCase
 
     public function testUpdateWithFiles()
     {
+        \Storage::fake();
         $thumbFile = UploadedFile::fake()->image('thumb.jpg');
         $videoFile = UploadedFile::fake()->create('video.mp4');
         $bannerFile = UploadedFile::fake()->create('banner.jpg');
@@ -93,6 +90,7 @@ class VideoUploadTest extends BaseVideoTestCase
 
     public function testUpdateIfRollbackFiles()
     {
+        \Storage::fake();
         \Event::listen(TransactionCommitted::class, function () {
             throw new TestException();
         });
@@ -116,5 +114,46 @@ class VideoUploadTest extends BaseVideoTestCase
         }
 
         $this->assertTrue($hasError);
+    }
+
+    public function testFileUrlWithLocalDriver()
+    {
+        $fileFields = [];
+        foreach (Video::$fileFields as $field) {
+            $fileFields[$field] = "$field.test";
+        }
+
+        $video = factory(Video::class)->create($fileFields);
+        $localDrive = config('filesystems.default');
+        $baseUrl = config('filesystems.disks.' . $localDrive)['url'];
+        foreach ($fileFields as $field => $value) {
+            $fileUrl = $video->{"{$field}_url"};
+            $this->assertEquals("{$baseUrl}/$video->id/$value", $fileUrl);
+        }
+    }
+
+    public function testFileUrlWithGcsDriver()
+    {
+        $fileFields = [];
+        foreach (Video::$fileFields as $field) {
+            $fileFields[$field] = "$field.test";
+        }
+
+        $video = factory(Video::class)->create($fileFields);
+        $baseUrl = config('filesystems.disks.gcs.storage_api_uri');
+        \Config::set('filesystems.default', 'gcs');
+        foreach ($fileFields as $field => $value) {
+            $fileUrl = $video->{"{$field}_url"};
+            $this->assertEquals("{$baseUrl}/$video->id/$value", $fileUrl);
+        }
+    }
+
+    public function testFileUrlsIfNullWhenFieldsAreNull()
+    {
+        $video = factory(Video::class)->create();
+        foreach (Video::$fileFields as $field) {
+            $fileUrl = $video->{"{$field}_url"};
+            $this->assertNull($fileUrl);
+        }
     }
 }
