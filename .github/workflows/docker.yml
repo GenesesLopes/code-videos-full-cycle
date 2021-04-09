@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: Decrypt credentials
+        run: gcloud kms decrypt --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc --plaintext-file=./storage/credentials/google/service-account-storage.json --location=global --keyring=code-videos --key=service-account
       - name: Build de containers
         run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
       - name: Copy .env
@@ -20,10 +26,6 @@ jobs:
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: docker exec micro-videos-app composer install
-      - name: Sleep for 10 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "10s"
       - name: Test containers
         run: docker-compose ps
       - name: Run clean cache

@@ -35,10 +35,8 @@ class GenresHasCategoriesRuleUnitTest extends TestCase
 
     public function testGenresIdValue()
     {
+
         $rule = $this->createRuleMock([]);
-        $rule->shouldReceive('getRows')
-            ->withAnyArgs()
-            ->andReturnNull();
 
         $rule->passes('', [1, 1, 2, 2]);
         $reflectionClass = new \ReflectionClass(GenresHasCategoriesRule::class);

@@ -1,41 +1,16 @@
 <?php
 
-namespace Tests\Feature\Models;
+namespace Tests\Feature\Models\Video;
 
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Video;
 use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Ramsey\Uuid\Uuid;
-use Tests\TestCase;
+use Tests\Feature\Models\Video\BaseVideoTestCase;
 
-class VideoTest extends TestCase
+class VideoCrudTest extends BaseVideoTestCase
 {
-    use DatabaseMigrations;
-
-    /** @var Video */
-    private $video;
-
-    /** @var array */
-    private $data;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->data = [
-            'title' => 'title 2',
-            'description' => 'description 2',
-            'year_launched' => 2020,
-            'rating' => Video::RATING_LIST[3],
-            'duration' => 90
-        ];
-        $this->video = factory(Video::class)->create();
-        $this->video->refresh();
-    }
-
 
     public function testList()
     {
@@ -47,6 +22,9 @@ class VideoTest extends TestCase
                 'title',
                 'description',
                 'video_file',
+                'thumb_file',
+                'banner_file',
+                'trailer_file',
                 'year_launched',
                 'opened',
                 'rating',
@@ -67,7 +45,8 @@ class VideoTest extends TestCase
                 'description' => 'description',
                 'year_launched' => 2010,
                 'rating' => Video::RATING_LIST[0],
-                'duration' => 90
+                'duration' => 90,
+                'opened' => true
             ],
             [
                 'title' => 'title 2',
@@ -170,8 +149,9 @@ class VideoTest extends TestCase
         $video = factory(Video::class)->create();
         $oldTitle = $video->title;
         try {
+
             $video->update([
-                'title' => 'title',
+                'title' => "title",
                 'description' => 'rescription',
                 'year_launched' => 2010,
                 'rating' => Video::RATING_LIST[0],

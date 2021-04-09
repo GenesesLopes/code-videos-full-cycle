@@ -1,51 +1,21 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Api;
+namespace Tests\Feature\Http\Controllers\Api\VideoController;
 
-use App\Exceptions\TestException;
-use App\Http\Controllers\Api\VideoController;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Video;
-use Exception;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestResponse;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use Arr;
 use Tests\Traits\{
     TestSaves,
     TestValidations
 };
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Mockery\MockInterface;
+use Tests\Feature\Http\Controllers\Api\VideoController\BaseVideoControllerTestCase;
 
-class VideoControllerTest extends TestCase
+class VideoControllerCrudTest extends BaseVideoControllerTestCase
 {
-    use DatabaseMigrations, TestValidations, TestSaves;
-
-    /**
-     * @var Video
-     */
-    private $video;
-    private $sendData;
-
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->video = factory(Video::class)->create([
-            'opened' => false
-        ]);
-        $this->sendData = [
-            'title' => 'title',
-            'description' => 'rescription',
-            'year_launched' => 2010,
-            'rating' => Video::RATING_LIST[0],
-            'duration' => 90
-        ];
-    }
+    use TestValidations, TestSaves;
 
     public function testIndex()
     {
@@ -172,52 +142,26 @@ class VideoControllerTest extends TestCase
         $this->assertInvalidationInUpdateAction($data, 'exists');
     }
 
-    public function testInvalidationVideoFileField()
+
+    public function testSaveWithoutFiles()
     {
-        \Storage::fake();
-
-        //Max File
-        $video_file = UploadedFile::fake()->create('video', 3000, 'video/mp4');
-        $data = [
-            'video_file' => $video_file
-        ];
-        $this->assertInvalidationInStoreAction($data, 'max.file', ['max' => 2000]);
-
-        $video_file = UploadedFile::fake()->create('video', 1000, 'video/avi');
-        $data = [
-            'video_file' => $video_file
-        ];
-        $this->assertInvalidationInStoreAction($data, 'mimetypes', ['values' => 'video/mp4']);
-    }
-
-    public function testSave()
-    {
-        $categories = factory(Category::class)->create();
-        $genres = factory(Genre::class)->create();
-        $genres->categories()->sync($categories->id);
+        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id']);
         $data = [
             [
-                'send_data' => $this->sendData + [
-                    'categories_id' => [$categories->id],
-                    'genres_id' => [$genres->id]
-                ],
-                'test_data' => $this->sendData + ['opened' => false]
+                'send_data' => $this->sendData,
+                'test_data' => $testData + ['opened' => false]
             ],
             [
                 'send_data' => $this->sendData + [
-                    'opened' => true,
-                    'categories_id' => [$categories->id],
-                    'genres_id' => [$genres->id]
+                    'opened' => true
                 ],
-                'test_data' => $this->sendData + ['opened' => true]
+                'test_data' => $testData + ['opened' => true]
             ],
             [
                 'send_data' => $this->sendData + [
-                    'rating' => Video::RATING_LIST[1],
-                    'categories_id' => [$categories->id],
-                    'genres_id' => [$genres->id]
+                    'rating' => Video::RATING_LIST[1]
                 ],
-                'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]]
+                'test_data' => $testData + ['rating' => Video::RATING_LIST[1]]
             ]
         ];
         foreach ($data as $value) {
@@ -256,6 +200,7 @@ class VideoControllerTest extends TestCase
             );
         }
     }
+
 
     protected function assertHasCategory($videoId, $categoryId)
     {
