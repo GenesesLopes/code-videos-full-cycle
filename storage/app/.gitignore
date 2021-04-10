@@ -1,3 +1,8 @@
 *
 !public/
+!fake/
+!fake/thumbs/
+!fake/videos/
+!fake/videos/video.mp4
+!fake/thumbs/LaravelFramework.png
 !.gitignore
