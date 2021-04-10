@@ -1,4 +1,6 @@
 *
 !public/
 !fake/
+!fake/thumbs/
+!fake/videos/
 !.gitignore
