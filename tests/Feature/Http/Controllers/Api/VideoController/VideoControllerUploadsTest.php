@@ -84,7 +84,9 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 
         $newFiles = [
             'thumb_file' => UploadedFile::fake()->create('thumb_file.jpg'),
-            'video_file' => UploadedFile::fake()->create('video_file.mp4')
+            'video_file' => UploadedFile::fake()->create('video_file.mp4'),
+            'banner_file' => UploadedFile::fake()->create('banner.jpg'),
+            'trailer_file' => UploadedFile::fake()->create('trailer.mp4')
         ];
 
         $response = $this->json(
@@ -97,12 +99,14 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 
         $this->assertFilesOnPersist(
             $response,
-            \Arr::except($files, ['thumb_file', 'video_file']) + $newFiles
+            \Arr::except($files, ['thumb_file', 'video_file', 'banner_file', 'trailer_file']) + $newFiles
         );
 
         $id = $response->json('id');
         \Storage::assertMissing("$id/{$files['thumb_file']->hashName()}");
         \Storage::assertMissing("$id/{$files['video_file']->hashName()}");
+        \Storage::assertMissing("$id/{$files['banner_file']->hashName()}");
+        \Storage::assertMissing("$id/{$files['trailer_file']->hashName()}");
     }
     protected function getFiles()
     {
