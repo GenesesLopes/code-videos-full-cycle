@@ -9,11 +9,12 @@ use App\Models\Video;
 use Illuminate\Database\Events\TransactionCommitted;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\Models\Video\BaseVideoTestCase;
+use Tests\Traits\TestProd;
 
 class VideoUploadTest extends BaseVideoTestCase
 {
 
-
+    use TestProd;
 
     public function testCreateWithFiles()
     {
@@ -134,6 +135,7 @@ class VideoUploadTest extends BaseVideoTestCase
 
     public function testFileUrlWithGcsDriver()
     {
+        $this->skipTestIfNotProd();
         $fileFields = [];
         foreach (Video::$fileFields as $field) {
             $fileFields[$field] = "$field.test";
