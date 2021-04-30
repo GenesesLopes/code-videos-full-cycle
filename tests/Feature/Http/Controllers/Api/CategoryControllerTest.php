@@ -57,7 +57,7 @@ class CategoryControllerTest extends TestCase
                 'meta' => [],
                 'links' => []
             ]);
-        
+
         $resource = CategoryResource::collection(collect([$this->category]));
         $this->assertResource($response, $resource);
     }
@@ -171,7 +171,9 @@ class CategoryControllerTest extends TestCase
         $response = $this->json('GET', route('categories.show', ['category' => $this->category->id]));
         $response
             ->assertStatus(200)
-            ->assertJson($this->category->toArray());
+            ->assertJsonStructure([
+                'data' => $this->serializedFields
+            ]);
     }
 
     protected function routeStore()

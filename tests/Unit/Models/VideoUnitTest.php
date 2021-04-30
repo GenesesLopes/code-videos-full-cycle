@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Models\Video;
 use App\Models\Traits\{
@@ -10,7 +10,7 @@ use App\Models\Traits\{
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tests\TestCase;
 
-class VideoTest extends TestCase
+class VideoUnitTest extends TestCase
 {
 
     /**

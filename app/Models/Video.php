@@ -31,7 +31,7 @@ class Video extends Model
         'video_file',
         'thumb_file',
         'banner_file',
-        'trailer_file'
+        'trailer_file',
     ];
 
     protected $dates = ['deleted_at'];
@@ -96,6 +96,11 @@ class Video extends Model
             $video->genres()->sync($attributes['genres_id']);
     }
 
+    protected function uploadDir()
+    {
+        return $this->id;
+    }
+
     public function getThumbFileUrlAttribute()
     {
         return $this->thumb_file ? $this->getFileUrl($this->thumb_file) : null;
@@ -124,10 +129,5 @@ class Video extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class)->withTrashed();
-    }
-
-    function uploadDir()
-    {
-        return $this->id;
     }
 }
