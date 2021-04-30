@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class BasicCrudController extends Controller
 {
+
+    protected $paginationSize = 15;
 
     protected abstract function model();
 
@@ -15,17 +18,27 @@ abstract class BasicCrudController extends Controller
 
     protected abstract function rulesUpdate();
 
+    protected abstract function resource();
+
+    protected abstract function resourceCollection();
+
     public function index()
     {
-        return $this->model()::all();
+        $data = !$this->paginationSize ? $this->model()::all() : $this->model()::paginate($this->paginationSize);
+        $resourceCollectionClass = $this->resourceCollection();
+        $refClass = new \ReflectionClass($resourceCollectionClass);
+        return $refClass->isSubclassOf(ResourceCollection::class)
+            ? new $resourceCollectionClass($data)
+            : $resourceCollectionClass::collection($data);
     }
 
     public function store(Request $request)
     {
-        $validateData = $this->validate($request,$this->rulesStore());
+        $validateData = $this->validate($request, $this->rulesStore());
         $obj = $this->model()::create($validateData);
         $obj->refresh();
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     protected function findOrFail($id)
@@ -37,15 +50,18 @@ abstract class BasicCrudController extends Controller
 
     public function show($id)
     {
-        return $this->findOrFail($id);
+        $obj = $this->findOrFail($id);
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     public function update(Request $request, $id)
     {
         $obj = $this->findOrFail($id);
-        $validateData = $this->validate($request,$this->rulesUpdate());
+        $validateData = $this->validate($request, $this->rulesUpdate());
         $obj->update($validateData);
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     public function destroy($id)
@@ -54,5 +70,4 @@ abstract class BasicCrudController extends Controller
         $obj->delete();
         return response()->noContent();
     }
-
 }

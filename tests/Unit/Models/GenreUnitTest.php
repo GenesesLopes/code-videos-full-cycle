@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Models\Category;
 use App\Models\Genre;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use PHPUnit\Framework\TestCase\Models;
 use Tests\TestCase;
 
-class GenreTest extends TestCase
+class GenreUnitTest extends TestCase
 {
 
     /**

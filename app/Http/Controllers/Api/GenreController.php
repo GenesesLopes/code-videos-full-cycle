@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Genre;
 use App\Http\Controllers\Api\BasicCrudController;
+use App\Http\Resources\GenreResource;
 use Illuminate\Http\Request;
 
 class GenreController extends BasicCrudController
@@ -25,7 +26,8 @@ class GenreController extends BasicCrudController
             return $obj;
         });
         $obj->refresh();
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     public function update(Request $request, $id)
@@ -40,7 +42,8 @@ class GenreController extends BasicCrudController
             return $obj;
         });
 
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     protected function handleRelations(Genre $genre, Request $request)
@@ -61,5 +64,15 @@ class GenreController extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resource()
+    {
+        return GenreResource::class;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
     }
 }

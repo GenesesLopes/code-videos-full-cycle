@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Tests\Traits\TestProd;
 use Tests\Traits\TestStorages;
 
-class UploadFilesUnitTest extends TestCase
+class UploadFilesTest extends TestCase
 {
 
     use TestStorages, TestProd;
