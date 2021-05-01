@@ -1,4 +1,4 @@
-FROM php:7.3.6-fpm-alpine3.9
+FROM php:7.3.6-fpm-alpine3.10
 
 RUN apk update && apk add --no-cache shadow openssl \
     bash \
@@ -50,10 +50,7 @@ RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cl
 
 ENV PATH /opt/google-cloud-sdk/bin:$PATH
 
-RUN gcloud config set core/disable_usage_reporting true && \
-    gcloud config set component_manager/disable_update_check true && \
-    gcloud config set metrics/environment github_docker_image && \
-    gcloud --version
+RUN npm config set cache /var/www/.npm-cache --global
 
 RUN usermod -u 1000 www-data
 
@@ -62,5 +59,10 @@ WORKDIR /var/www
 RUN rm -rf /var/www/html && ln -s public html
 
 USER www-data
+
+RUN gcloud config set core/disable_usage_reporting true && \
+    gcloud config set component_manager/disable_update_check true && \
+    gcloud config set metrics/environment github_docker_image && \
+    gcloud --version
 
 EXPOSE 9000
