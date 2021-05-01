@@ -21,7 +21,10 @@
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash"
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"phpunit.files": "backend/{test,tests,Test,Tests}/**/*Test.php",
+		"phpunit.phpunit": "/var/www/backend/vendor/bin/phpunit",
+		"php.suggest.basic": false
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
@@ -30,7 +33,10 @@
 		"esbenp.prettier-vscode",
 		"recca0120.vscode-phpunit",
 		"neilbrayfield.php-docblocker",
-		"rifi2k.format-html-in-php"
+		"rifi2k.format-html-in-php",
+		"dbaeumer.vscode-eslint",
+		"ms-vscode.vscode-typescript-tslint-plugin",
+		"xabikos.reactsnippets"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

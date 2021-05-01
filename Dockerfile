@@ -50,7 +50,7 @@ RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cl
 
 ENV PATH /opt/google-cloud-sdk/bin:$PATH
 
-RUN npm config set cache /var/www/.npm-cache --global
+RUN npm config set cache /var/www/.npm-cache --global && npm install yarn -g
 
 RUN usermod -u 1000 www-data
 
@@ -64,5 +64,10 @@ RUN gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image && \
     gcloud --version
+
+RUN composer config -g cache-dir "/var/www/.composer/cache" && \
+    composer config -g data-dir "/var/www/.composer"
+
+RUN yarn config set cache-folder /var/www/.cache/yarn/v6
 
 EXPOSE 9000

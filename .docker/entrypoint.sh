@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Frontend
-cd /var/www/frontend && npm install && cd .. 
+cd /var/www/frontend && yarn && cd .. 
 
 ## Backend
 cd backend

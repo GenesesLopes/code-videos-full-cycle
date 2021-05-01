@@ -2,3 +2,5 @@
 .idea/
 .vscode/
 .npm-cache
+.composer
+.cache
