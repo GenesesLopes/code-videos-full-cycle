@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { AppBar, Button, IconButton, makeStyles, Theme, Menu, Toolbar, Typography, MenuItem } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Button, makeStyles, Theme, Toolbar, Typography } from '@material-ui/core';
 import logo from '../../assets/img/logo.png';
+import {Menu} from './Menu'
 
 const useStyles = makeStyles((theme: Theme) => ({
     toolbar: {
@@ -21,24 +21,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Navbar: React.FC = () => {
     const classes = useStyles()
+    
     return (
        <AppBar>
            <Toolbar className={classes.toolbar}>
-            <IconButton 
-                color="inherit"
-                edge="start"
-                aria-label="open drawer"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-            >
-                <MenuIcon />
-            </IconButton>
-            <Menu 
-                id="menu-appbar"
-                open={false}
-            >
-                <MenuItem>Categorias</MenuItem>
-            </Menu>
+            <Menu />
             <Typography className={classes.title}>
                 <img src={logo} alt="Codeflix" className={classes.logo}/>
             </Typography>

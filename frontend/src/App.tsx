@@ -1,12 +1,17 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { Navbar } from './components/Navbar';
-// import logo from './logo.svg';
-// import './App.css';
-// import { Button } from '@material-ui/core';
-
+import Page from './components/Pages';
 const App: React.FC = () => {
   return (
-    <Navbar/>
+    <>
+      <Navbar/>
+      <Box paddingTop={'70px'}>
+        <Page title={'categorias'}>
+          Conteúdo
+        </Page>
+      </Box>
+    </>
   )
 }
 
