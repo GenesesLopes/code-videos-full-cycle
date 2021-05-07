@@ -1,6 +1,5 @@
 .docker/dbdata/
 .idea/
-.vscode/
 .npm-cache
 .composer
 .cache
