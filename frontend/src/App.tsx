@@ -7,7 +7,7 @@ const App: React.FC = () => {
     <>
       <Navbar/>
       <Box paddingTop={'70px'}>
-        <Page title={'categorias'}>
+        <Page title={'Categorias'}>
           Conteúdo
         </Page>
       </Box>

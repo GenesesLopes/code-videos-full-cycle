@@ -16,7 +16,6 @@ const index: React.FC<PageProps> = ({title, children}) => {
     const classes = useStyles();
 
     return (
-     
         <Container>
             <Typography className={classes.title} component='h1' variant='h5'>
                 {title}
