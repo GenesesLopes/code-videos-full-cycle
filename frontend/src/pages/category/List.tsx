@@ -4,7 +4,7 @@ import Page from '../../components/Pages'
 
 const List = () => {
     return (
-        <Page title={"Listagem de categoria"}>
+        <Page title="Listagem Categoria">
 
         </Page>
     );
