@@ -13,19 +13,19 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       - name: Decrypt credentials
-        run: gcloud kms decrypt --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc --plaintext-file=./storage/credentials/google/service-account-storage.json --location=global --keyring=code-videos --key=service-account
+        run: gcloud kms decrypt --ciphertext-file=./backend/storage/credentials/google/service-account-storage.json.enc --plaintext-file=./backend/storage/credentials/google/service-account-storage.json --location=global --keyring=code-videos --key=service-account
       - name: Build de containers
         run: docker-compose -f docker-compose.prod.yaml down -v && docker-compose -f docker-compose.prod.yaml up -d --build --force-recreate
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cp .env.example .env
+        run: docker exec micro-videos-app cd backend && cp .env.example .env
       - name: Copy .env testing
-        run: docker exec micro-videos-app cp .env.testing.example .env.testing
+        run: docker exec micro-videos-app cd backend && cp .env.testing.example .env.testing
       - name: Run composer install
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app composer install
+        run: docker exec micro-videos-app cd backend && composer install
       - name: Sleep for 10 seconds
         uses: jakejarvis/wait-action@master
         with:
@@ -33,12 +33,12 @@ jobs:
       - name: Test containers
         run: docker-compose ps
       - name: Run clean cache
-        run: docker exec micro-videos-app php artisan cache:clear
+        run: docker exec micro-videos-app cd backend && php artisan cache:clear
       - name: Run migrations
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app php artisan migrate
+        run: docker exec micro-videos-app cd backend && php artisan migrate
       - name: Run Tests
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app ./vendor/bin/phpunit
+        run: docker exec micro-videos-app cd backend && ./vendor/bin/phpunit
