@@ -19,13 +19,13 @@ jobs:
       - name: Copy .env
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cd backend && cp .env.example .env
+        run: docker exec micro-videos-app cp backend/.env.example backend/.env
       - name: Copy .env testing
-        run: docker exec micro-videos-app cd backend && cp .env.testing.example .env.testing
+        run: docker exec micro-videos-app cp backend/.env.testing.example backend/.env.testing
       - name: Run composer install
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cd backend && composer install
+        run: docker exec micro-videos-app composer install -d backend/
       - name: Sleep for 10 seconds
         uses: jakejarvis/wait-action@master
         with:
@@ -33,12 +33,12 @@ jobs:
       - name: Test containers
         run: docker-compose ps
       - name: Run clean cache
-        run: docker exec micro-videos-app cd backend && php artisan cache:clear
+        run: docker exec micro-videos-app php backend/artisan cache:clear
       - name: Run migrations
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cd backend && php artisan migrate
+        run: docker exec micro-videos-app php backend/artisan migrate
       - name: Run Tests
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
-        run: docker exec micro-videos-app cd backend && ./vendor/bin/phpunit
+        run: docker exec micro-videos-app ./backend/vendor/bin/phpunit -c backend/phpunit.xml
