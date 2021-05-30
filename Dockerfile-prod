@@ -26,6 +26,6 @@ RUN rm -rf /var/www/html && ln -s public html
 
 COPY . /var/www
 
-RUN chmod -R 777 storage
+RUN chmod -R 777 backend/storage
 
 EXPOSE 9000
