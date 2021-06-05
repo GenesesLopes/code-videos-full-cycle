@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { httpVideo } from '../../utils/http';
-import { Chip } from '@material-ui/core';
 import {format, parseISO} from 'date-fns'
+
+
+const TypeMembersMap = {
+    1: 'Diretor',
+    2: 'Ator'
+};
 
 const colunsDefinitions: MUIDataTableColumn[] = [
     {
@@ -10,11 +15,11 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         label: 'Nome'
     },
     {
-        name: 'is_active',
-        label: 'Ativo?',
+        name: 'type',
+        label: 'Tipo',
         options: {
             customBodyRender(value){
-                return value ? <Chip label='Sim' color='primary' /> : <Chip label='Não' color='secondary'/>
+                return TypeMembersMap[value];
             }
         }
     },
@@ -28,13 +33,14 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         }
     }
 ];
+
 type Props = {};
 const Table = (props: Props) => {
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        httpVideo.get('categories').then(response =>{
+        httpVideo.get('cast_members').then(response =>{
             setData(response.data.data)
         }).catch(error => {
             console.error(error)
@@ -43,7 +49,7 @@ const Table = (props: Props) => {
     
     return (
         <MUIDataTable 
-            title='Listagem de Categorias'
+            title='Listagem de Membros'
             columns={colunsDefinitions}
             data={data}
         />
