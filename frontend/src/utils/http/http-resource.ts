@@ -7,8 +7,8 @@ export default class HttpResource {
         protected resource
     ){}
 
-    list(){
-        return this.http.get(this.resource)
+    list<T = any>(){
+        return this.http.get<T>(this.resource)
     }
     get(){}
     create(){}
