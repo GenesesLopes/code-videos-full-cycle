@@ -3,6 +3,7 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { Chip } from '@material-ui/core';
 import {format, parseISO} from 'date-fns'
 import categoryHttp from '../../utils/http/category-http';
+import { AxiosResponse } from 'axios';
 
 const colunsDefinitions: MUIDataTableColumn[] = [
     {
@@ -34,6 +35,10 @@ interface Category {
     name: string;
 }
 
+interface CategoryResponse extends AxiosResponse {
+    data: Category[]
+}
+
 type Props = {};
 const Table = (props: Props) => {
 
@@ -41,14 +46,9 @@ const Table = (props: Props) => {
 
     useEffect(() => {
         categoryHttp
-            .list<{data: Category[]}>()
+            .list<CategoryResponse>()
             .then(({data}) => setData(data.data))
             .catch(error => console.error(error))
-        // httpVideo.get('categories').then(response =>{
-        //     setData(response.data.data)
-        // }).catch(error => {
-        //     console.error(error)
-        // })
     },[])
     
     return (
