@@ -36,7 +36,8 @@
 		"dbaeumer.vscode-eslint",
 		"ms-vscode.vscode-typescript-tslint-plugin",
 		"xabikos.reactsnippets",
-		"calebporzio.better-phpunit"
+		"calebporzio.better-phpunit",
+		"steoates.autoimport"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
