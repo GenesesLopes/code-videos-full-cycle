@@ -37,7 +37,8 @@
 		"ms-vscode.vscode-typescript-tslint-plugin",
 		"xabikos.reactsnippets",
 		"calebporzio.better-phpunit",
-		"steoates.autoimport"
+		"steoates.autoimport",
+		"irongeek.vscode-env"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
