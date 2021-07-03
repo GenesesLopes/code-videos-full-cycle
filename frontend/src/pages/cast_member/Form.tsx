@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Box, Button, ButtonProps, Checkbox, makeStyles, TextField, Theme } from '@material-ui/core';
+import { Box, Button, ButtonProps, Radio, FormControl, FormControlLabel, RadioGroup, makeStyles, TextField, Theme, FormLabel } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
-import categoryHttp from '../../utils/http/category-http';
-import { CategoryResponse } from './types';
-import { useHistory } from 'react-router';
+// import categoryHttp from '../../utils/http/category-http';
+// import { CategoryResponse } from './types';
+// import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const Form = () => {
 
-    const history = useHistory();
+    // const history = useHistory();
 
     const classes = useStyles();
 
@@ -26,8 +26,7 @@ const Form = () => {
 
     const defaultValues = {
         name: '',
-        description: '',
-        is_active: true
+        type: '1'
     }
 
     const { getValues, control, handleSubmit } = useForm({
@@ -36,16 +35,20 @@ const Form = () => {
     
     const OnSubmit = async (formData, event) => {
         let eventType = event.type
-        try{
-            let { data } = await categoryHttp.create<CategoryResponse>(formData)
-            console.log(data)
-            if(eventType === 'click'){
-                // console.log('redirecionar para listagem')
-                history.push('/categories')
-            }
-        }catch(error){
-            console.error(error)
-        }
+        console.log(
+            eventType,
+            formData
+        )
+        // try{
+        //     let { data } = await categoryHttp.create<CategoryResponse>(formData)
+        //     console.log(data)
+        //     if(eventType === 'click'){
+        //         // console.log('redirecionar para listagem')
+        //         history.push('/categories')
+        //     }
+        // }catch(error){
+        //     console.error(error)
+        // }
         
     }
 
@@ -64,29 +67,22 @@ const Form = () => {
                 }
             />
             <Controller
-                name='description'
+                name='type'
                 control={control}
                 render={
-                    ({ field }) => <TextField
-                        {...field}
-                        label='Descrição'
-                        multiline
-                        rows='4'
-                        fullWidth
-                        variant={'outlined'}
-                        margin={'normal'}
-                    />
+                    ({ field }) => (
+                        <FormControl component='fieldset' margin="normal">
+                            <FormLabel component='legend'>Tipo</FormLabel>
+                            <RadioGroup {...field}>
+                                <FormControlLabel value='1' control={ <Radio/> } label='Diretor' />
+                                <FormControlLabel value='2' control={ <Radio/> } label='Ator' />
+                            </RadioGroup>
+                        </FormControl>
+                    )
                 }
 
             />
-            <Controller 
-                name='is_active'
-                control={control}
-                render={
-                    ({ field }) => <Checkbox {...field} defaultChecked={defaultValues.is_active} />
-                }
-            />
-            Ativo ?
+
             <Box dir='rtl'>
                 <Button {...buttonProps} onClick={(event) => OnSubmit(getValues(),event)}>Salvar</Button>
                 <Button {...buttonProps} type='submit'>Salvar e continuar editando</Button>

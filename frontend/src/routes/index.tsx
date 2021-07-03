@@ -3,6 +3,7 @@ import CategoryList from '../pages/category/PageList';
 import CategoryCreate from '../pages/category/PageForm';
 import Dashboard from '../pages/Dashboard';
 import CastMemberList from '../pages/cast_member/PageList';
+import CastMemberCreate from '../pages/cast_member/PageForm';
 import GenreList from '../pages/genres/PageList';
 
 export interface MyRouteProps extends RouteProps {
@@ -43,7 +44,7 @@ const routes: MyRouteProps[] = [
         name: 'cast-members.create',
         label: 'Criar membros da equipe',
         path: '/cast-members/create',
-        component: CastMemberList,
+        component: CastMemberCreate,
         exact: true
     },
     {

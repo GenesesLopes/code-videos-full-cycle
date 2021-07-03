@@ -3,7 +3,8 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { Chip } from '@material-ui/core';
 import {format, parseISO} from 'date-fns'
 import categoryHttp from '../../utils/http/category-http';
-import { AxiosResponse } from 'axios';
+import { Category, CategoryResponse } from './types';
+
 
 const colunsDefinitions: MUIDataTableColumn[] = [
     {
@@ -29,15 +30,6 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         }
     }
 ];
-
-interface Category {
-    id: string;
-    name: string;
-}
-
-interface CategoryResponse extends AxiosResponse {
-    data: Category[]
-}
 
 type Props = {};
 const Table = (props: Props) => {
