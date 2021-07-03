@@ -1,10 +1,11 @@
 import { AxiosResponse } from 'axios';
 
-export interface Category {
+export interface CastMember {
     id: string;
     name: string;
+    type: number;
 }
 
-export interface CategoryResponse extends AxiosResponse {
-    data: Category[]
+export interface CastMemberResponse extends AxiosResponse {
+    data: CastMember[]
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Box, Button, ButtonProps, Radio, FormControl, FormControlLabel, RadioGroup, makeStyles, TextField, Theme, FormLabel } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
-// import categoryHttp from '../../utils/http/category-http';
-// import { CategoryResponse } from './types';
-// import { useHistory } from 'react-router';
+import castMemberHttp from '../../utils/http/cast-member-http';
+import { CastMemberResponse } from './types';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const Form = () => {
 
-    // const history = useHistory();
+    const history = useHistory();
 
     const classes = useStyles();
 
@@ -35,20 +35,16 @@ const Form = () => {
     
     const OnSubmit = async (formData, event) => {
         let eventType = event.type
-        console.log(
-            eventType,
-            formData
-        )
-        // try{
-        //     let { data } = await categoryHttp.create<CategoryResponse>(formData)
-        //     console.log(data)
-        //     if(eventType === 'click'){
-        //         // console.log('redirecionar para listagem')
-        //         history.push('/categories')
-        //     }
-        // }catch(error){
-        //     console.error(error)
-        // }
+        try{
+            let { data } = await castMemberHttp.create<CastMemberResponse>(formData)
+            console.log(data)
+            if(eventType === 'click'){
+                // console.log('redirecionar para listagem')
+                history.push('/cast-members')
+            }
+        }catch(error){
+            console.error(error)
+        }
         
     }
 
