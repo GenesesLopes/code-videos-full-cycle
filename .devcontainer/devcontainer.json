@@ -38,7 +38,8 @@
 		"xabikos.reactsnippets",
 		"calebporzio.better-phpunit",
 		"steoates.autoimport",
-		"irongeek.vscode-env"
+		"irongeek.vscode-env",
+		"rangav.vscode-thunder-client"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

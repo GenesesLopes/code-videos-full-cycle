@@ -1,0 +1,333 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "code-micro-netflix",
+    "dateExported": "2021-07-06T19:49:24.714Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "containerId": "",
+            "sortNum": 10000,
+            "name": "Videos",
+            "_id": "edc91df6-813e-4fcd-a691-c5c3c8e4c944",
+            "created": "2021-07-06T19:44:40.413Z"
+        },
+        {
+            "containerId": "edc91df6-813e-4fcd-a691-c5c3c8e4c944",
+            "sortNum": 20000,
+            "name": "Categories",
+            "_id": "460ee4e5-ee56-4a10-a5ef-c9f88220d60e",
+            "created": "2021-07-06T19:44:40.413Z"
+        },
+        {
+            "containerId": "edc91df6-813e-4fcd-a691-c5c3c8e4c944",
+            "sortNum": 30000,
+            "name": "Genus",
+            "_id": "a8e5c081-adae-48e4-8d1e-8e1dbbce981c",
+            "created": "2021-07-06T19:44:40.413Z"
+        },
+        {
+            "containerId": "edc91df6-813e-4fcd-a691-c5c3c8e4c944",
+            "sortNum": 40000,
+            "name": "Videos",
+            "_id": "4f219ee0-c2ad-4344-abf5-cabc51857fbc",
+            "created": "2021-07-06T19:44:40.413Z"
+        },
+        {
+            "containerId": "edc91df6-813e-4fcd-a691-c5c3c8e4c944",
+            "sortNum": 50000,
+            "name": "Cast Member",
+            "_id": "0a723f57-7106-448c-8835-7271c880ef50",
+            "created": "2021-07-06T19:44:40.413Z"
+        }
+    ],
+    "requests": [
+        {
+            "containerId": "460ee4e5-ee56-4a10-a5ef-c9f88220d60e",
+            "sortNum": 10000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "List Category",
+            "url": "{{ApiVideos}}/categories",
+            "method": "GET",
+            "modified": "2021-07-06T19:47:18.570Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "30b56fc5-4357-4197-8469-859dd8e4e696",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "460ee4e5-ee56-4a10-a5ef-c9f88220d60e",
+            "sortNum": 20000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Create Category",
+            "url": "{{ApiVideos}}/categories/",
+            "method": "POST",
+            "modified": "2021-07-06T19:47:49.466Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "a8cd15f3-46ea-4c10-b173-9d94806a2255",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"minha primeira categoria\",\n    \"description\": \"Descrição\",\n    \"is_active\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "460ee4e5-ee56-4a10-a5ef-c9f88220d60e",
+            "sortNum": 30000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Update Category",
+            "url": "{{ApiVideos}}/categories/1",
+            "method": "PUT",
+            "modified": "2021-07-06T19:47:58.884Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "97954b25-8090-4e2a-b15c-45da2fbdefe7",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"minha segunda categoria\",\n    \"description\": \"Descrição\",\n    \"is_active\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "460ee4e5-ee56-4a10-a5ef-c9f88220d60e",
+            "sortNum": 40000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "DeleteCategory",
+            "url": "{{ApiVideos}}/categories/101",
+            "method": "DELETE",
+            "modified": "2021-07-06T19:48:13.469Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "5bc077bc-cd18-4a6b-a7fe-e500dfef4477",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "a8e5c081-adae-48e4-8d1e-8e1dbbce981c",
+            "sortNum": 50000,
+            "headers": [
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "List Genres",
+            "url": "{{ApiVideos}}/genre/00d4b87d-8fde-470a-b9f7-c8fc19a340fe",
+            "method": "GET",
+            "modified": "2021-07-06T19:44:40.419Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "3c40fbc5-6edf-462e-9dd2-2e4dd94c0bb3"
+        },
+        {
+            "containerId": "a8e5c081-adae-48e4-8d1e-8e1dbbce981c",
+            "sortNum": 60000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Create Genres",
+            "url": "{{ApiVideos}}/genre/",
+            "method": "POST",
+            "modified": "2021-07-06T19:48:26.841Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "566078fa-1b6e-4732-b94a-e68cdd8f1af0",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"meu primeiro Gênero\",\n    \"is_active\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "a8e5c081-adae-48e4-8d1e-8e1dbbce981c",
+            "sortNum": 70000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Update Genres",
+            "url": "{{ApiVideos}}/genre/91a63291-34f7-4769-9416-66eb021c4337",
+            "method": "PUT",
+            "modified": "2021-07-06T19:48:42.504Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "63ca5eb2-7c29-485f-ace3-13eeac8bedca",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"meu segundo Gênero\",\n    \"is_active\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "a8e5c081-adae-48e4-8d1e-8e1dbbce981c",
+            "sortNum": 80000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Delete Genres",
+            "url": "{{ApiVideos}}/genre/91a63291-34f7-4769-9416-66eb021c4337",
+            "method": "DELETE",
+            "modified": "2021-07-06T19:48:51.357Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "f9cc65cd-f5e2-47b5-9f78-58ffea1256fc",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "4f219ee0-c2ad-4344-abf5-cabc51857fbc",
+            "sortNum": 90000,
+            "headers": [
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Store Videos",
+            "url": "{{ApiVideos}}/videos",
+            "method": "POST",
+            "modified": "2021-07-06T19:44:40.419Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "0dadf957-1f13-4b5c-abe0-8462ba32fe9a",
+            "body": {
+                "form": [
+                    { "name": "title", "value": "title" },
+                    { "name": "description", "value": "description" },
+                    { "name": "year_launched", "value": "2010" },
+                    { "name": "rating", "value": "L" },
+                    { "name": "duration", "value": "95" },
+                    {
+                        "name": "categories_id[]",
+                        "value": "005bf845-8e99-4c1f-ab55-1a127a38d5d2"
+                    },
+                    {
+                        "name": "genres_id[]",
+                        "value": "02329d60-2ea7-41bf-b0c1-110241389e16"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "video_file",
+                        "value": "/C:/Users/geneses.lopes/Downloads/SampleVideo_1280x720_1mb.mp4"
+                    }
+                ],
+                "type": "formdata"
+            }
+        },
+        {
+            "containerId": "4f219ee0-c2ad-4344-abf5-cabc51857fbc",
+            "sortNum": 100000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Show Videos",
+            "url": "{{ApiVideos}}/videos",
+            "method": "GET",
+            "modified": "2021-07-06T19:45:40.927Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "3e630934-ea84-4ea7-a570-e5629e04fcc6",
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    { "name": "title", "value": "title" },
+                    { "name": "description", "value": "description" },
+                    { "name": "year_launched", "value": "2010" },
+                    { "name": "rating", "value": "L" },
+                    { "name": "duration", "value": "95" },
+                    {
+                        "name": "categories_id[]",
+                        "value": "005bf845-8e99-4c1f-ab55-1a127a38d5d2"
+                    },
+                    {
+                        "name": "genres_id[]",
+                        "value": "02329d60-2ea7-41bf-b0c1-110241389e16"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "video_file",
+                        "value": "/C:/Users/geneses.lopes/Downloads/SampleVideo_1280x720_1mb.mp4"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "containerId": "0a723f57-7106-448c-8835-7271c880ef50",
+            "sortNum": 110000,
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.io)"
+                },
+                { "name": "Accept", "value": "application/json" },
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "colId": "9164082e-82a2-4590-a716-13b77c4f2c8d",
+            "name": "Index",
+            "url": "{{ApiVideos}}/cast_members",
+            "method": "GET",
+            "modified": "2021-07-06T19:49:00.227Z",
+            "created": "2021-07-06T19:44:40.419Z",
+            "_id": "3d89ab3a-fef9-4ddd-9e35-9f9b95ab7f7a",
+            "params": [],
+            "tests": []
+        }
+    ]
+}
