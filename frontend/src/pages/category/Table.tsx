@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
-import { httpVideo } from '../../utils/http';
 import { Chip } from '@material-ui/core';
 import {format, parseISO} from 'date-fns'
+import categoryHttp from '../../utils/http/category-http';
+import { Category, CategoryResponse } from './types';
+
 
 const colunsDefinitions: MUIDataTableColumn[] = [
     {
@@ -28,17 +30,17 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         }
     }
 ];
+
 type Props = {};
 const Table = (props: Props) => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Category[]>([]);
 
     useEffect(() => {
-        httpVideo.get('categories').then(response =>{
-            setData(response.data.data)
-        }).catch(error => {
-            console.error(error)
-        })
+        categoryHttp
+            .list<CategoryResponse>()
+            .then(({data}) => setData(data.data))
+            .catch(error => console.error(error))
     },[])
     
     return (
