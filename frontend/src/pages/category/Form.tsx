@@ -20,7 +20,7 @@ const Form = () => {
     const classes = useStyles();
 
     const buttonProps: ButtonProps = {
-        variant: 'outlined',
+        variant: 'contained',
         className: classes.submit
     }
 
@@ -33,20 +33,20 @@ const Form = () => {
     const { getValues, control, handleSubmit } = useForm({
         defaultValues
     })
-    
+
     const OnSubmit = async (formData, event) => {
         let eventType = event.type
-        try{
+        try {
             let { data } = await categoryHttp.create<CategoryResponse>(formData)
             console.log(data)
-            if(eventType === 'click'){
+            if (eventType === 'click') {
                 // console.log('redirecionar para listagem')
                 history.push('/categories')
             }
-        }catch(error){
+        } catch (error) {
             console.error(error)
         }
-        
+
     }
 
     return (
@@ -79,7 +79,7 @@ const Form = () => {
                 }
 
             />
-            <Controller 
+            <Controller
                 name='is_active'
                 control={control}
                 render={
@@ -88,8 +88,20 @@ const Form = () => {
             />
             Ativo ?
             <Box dir='rtl'>
-                <Button {...buttonProps} onClick={(event) => OnSubmit(getValues(),event)}>Salvar</Button>
-                <Button {...buttonProps} type='submit'>Salvar e continuar editando</Button>
+                <Button
+                    color={'primary'}
+
+                    {...buttonProps}
+                    onClick={(event) => OnSubmit(getValues(), event)}
+                >
+                    Salvar
+                </Button>
+                <Button
+                    {...buttonProps}
+                    type='submit'
+                >
+                    Salvar e continuar editando
+                </Button>
             </Box>
         </form>
     );
