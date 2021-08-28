@@ -3,7 +3,7 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import {format, parseISO} from 'date-fns'
 import categoryHttp from '../../utils/http/category-http';
 import { Category, CategoryResponse } from './types';
-import { BadgeNo, BadgeYes } from '../../components/Badge';
+import { BadgeNo, BadgeYes } from '../../components/Badge/index';
 
 
 const colunsDefinitions: MUIDataTableColumn[] = [
@@ -16,7 +16,7 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         label: 'Ativo?',
         options: {
             customBodyRender(value){
-                return value ? <BadgeYes/> : <BadgeNo />;
+                return value ? <BadgeYes /> : <BadgeNo />;
             }
         }
     },
