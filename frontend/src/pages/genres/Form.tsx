@@ -33,8 +33,9 @@ const Form = () => {
     const classes = useStyles();
 
     const buttonProps: ButtonProps = {
-        variant: 'outlined',
-        className: classes.submit
+        variant: 'contained',
+        className: classes.submit,
+        color: 'secondary'
     }
 
     const defaultValues = {

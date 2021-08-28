@@ -20,8 +20,9 @@ const Form = () => {
     const classes = useStyles();
 
     const buttonProps: ButtonProps = {
-        variant: 'outlined',
-        className: classes.submit
+        variant: 'contained',
+        className: classes.submit,
+        color: 'secondary'
     }
 
     const defaultValues = {
@@ -70,8 +71,8 @@ const Form = () => {
                         <FormControl component='fieldset' margin="normal">
                             <FormLabel component='legend'>Tipo</FormLabel>
                             <RadioGroup {...field}>
-                                <FormControlLabel value='1' control={ <Radio/> } label='Diretor' />
-                                <FormControlLabel value='2' control={ <Radio/> } label='Ator' />
+                                <FormControlLabel value='1' control={ <Radio color={'primary'} /> } label='Diretor' />
+                                <FormControlLabel value='2' control={ <Radio color={'primary'} /> } label='Ator' />
                             </RadioGroup>
                         </FormControl>
                     )

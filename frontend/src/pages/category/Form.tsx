@@ -21,7 +21,8 @@ const Form = () => {
 
     const buttonProps: ButtonProps = {
         variant: 'contained',
-        className: classes.submit
+        className: classes.submit,
+        color: 'secondary'
     }
 
     const defaultValues = {
@@ -89,8 +90,6 @@ const Form = () => {
             Ativo ?
             <Box dir='rtl'>
                 <Button
-                    color={'primary'}
-
                     {...buttonProps}
                     onClick={(event) => OnSubmit(getValues(), event)}
                 >

@@ -9,12 +9,13 @@ import Table from './Table';
 const PageList = () => {
     return (
         <Page title="Listagem de Gêneros">
-            <Box dir={'rtl'}>
+            <Box dir={'rtl'} paddingBottom={2}>
                 <Fab 
                     title="Adicionar Gêneros"
                     size="small"
                     component={Link}
                     to="/genres/create"
+                    color={'secondary'}
                 >
                 <AddIcon />
                 </Fab>

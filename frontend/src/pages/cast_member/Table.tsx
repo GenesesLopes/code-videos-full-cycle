@@ -28,7 +28,7 @@ const colunsDefinitions: MUIDataTableColumn[] = [
         label: 'Criado em',
         options: {
             customBodyRender(value){
-                return <span>{format(parseISO(value),'dd/mm/yyy')}</span>
+                return <span>{format(parseISO(value),'dd/MM/yyyy')}</span>
             }
         }
     }
