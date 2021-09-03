@@ -32,7 +32,7 @@ const Form = () => {
     }
 
     const { getValues, control, handleSubmit } = useForm({
-        defaultValues
+        defaultValues,        
     })
 
     const OnSubmit = async (formData, event) => {
